@@ -1,0 +1,1359 @@
+<!DOCTYPE html>
+<html lang="zh-MO">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高二生物第一段大測複習紙 - 互動試題庫</title>
+    <style>
+        :root {
+            --primary: #16a34a;
+            --primary-dark: #15803d;
+            --primary-light: #f0fdf4;
+            --accent: #2563eb;
+            --purple: #9333ea;
+            --slate-50: #f8fafc;
+            --slate-100: #f1f3f5;
+            --slate-200: #e2e8f0;
+            --slate-700: #334155;
+            --slate-800: #1e293b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "PingFang TC", "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+            background-color: #f8fafc;
+            color: #334155;
+            line-height: 1.6;
+            padding-bottom: 3rem;
+        }
+
+        .header-bar {
+            position: sticky;
+            top: 0;
+            z-index: 40;
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+            border-bottom: 1px solid var(--slate-200);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            padding: 0.75rem 1rem;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            background-color: var(--primary);
+            color: #fff;
+            padding: 0.5rem;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .brand-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--slate-800);
+        }
+
+        .brand-sub {
+            font-size: 0.75rem;
+            color: #64748b;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.4rem 0.85rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .btn-blue { background-color: #2563eb; color: #fff; }
+        .btn-blue:hover { background-color: #1d4ed8; }
+        .btn-amber { background-color: #d97706; color: #fff; }
+        .btn-amber:hover { background-color: #b45309; }
+        .btn-green { background-color: var(--primary); color: #fff; }
+        .btn-green:hover { background-color: var(--primary-dark); }
+        .btn-gray { background-color: var(--slate-200); color: var(--slate-700); }
+        .btn-gray:hover { background-color: #cbd5e1; }
+        .btn-purple { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
+        .btn-purple:hover { background-color: #e9d5ff; }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 1.5rem auto 0;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .dashboard {
+            background-color: #fff;
+            border-radius: 1rem;
+            padding: 1.25rem;
+            border: 1px solid #bbf7d0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .dashboard.hidden { display: none; }
+
+        .score-ring {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background-color: #dcfce7;
+            color: #15803d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            font-weight: 900;
+            border: 4px solid var(--primary);
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 1px solid var(--slate-200);
+            box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-bottom: 1px solid var(--slate-100);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .badge {
+            background-color: #dcfce7;
+            color: #166534;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.375rem;
+        }
+
+        .badge-purple {
+            background-color: #f3e8ff;
+            color: #6b21a8;
+        }
+
+        .badge-amber {
+            background-color: #fef3c7;
+            color: #92400e;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--slate-800);
+        }
+
+        .blank-input {
+            border: none;
+            border-bottom: 2px solid #94a3b8;
+            background-color: var(--slate-50);
+            padding: 0.15rem 0.5rem;
+            font-weight: 600;
+            text-align: center;
+            display: inline-block;
+            min-width: 70px;
+            border-radius: 0.25rem 0.25rem 0 0;
+            transition: all 0.2s;
+            outline: none;
+            margin: 0 0.15rem;
+        }
+
+        .blank-input:focus {
+            border-bottom-color: var(--primary);
+            background-color: var(--primary-light);
+        }
+
+        .blank-input.ans-overlay {
+            background-color: #eff6ff !important;
+            border-bottom-color: #2563eb !important;
+            color: #1d4ed8 !important;
+            font-weight: 700;
+            cursor: not-allowed;
+        }
+
+        .blank-input.correct {
+            background-color: #dcfce7 !important;
+            border-bottom-color: #16a34a !important;
+            color: #15803d !important;
+        }
+
+        .blank-input.incorrect {
+            background-color: #ffe4e6 !important;
+            border-bottom-color: #e11d48 !important;
+            color: #be123c !important;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin-top: 0.75rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+        }
+
+        th, td {
+            border: 1px solid var(--slate-200);
+            padding: 0.65rem 0.75rem;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--slate-100);
+            font-weight: 700;
+            color: var(--slate-800);
+        }
+
+        .opt-btn {
+            width: 100%;
+            text-align: left;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #fff;
+            border: 1px solid var(--slate-200);
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin-top: 0.35rem;
+        }
+
+        .opt-btn:hover {
+            background-color: var(--slate-50);
+        }
+
+        .explanation {
+            margin-top: 0.75rem;
+            padding: 0.75rem;
+            background-color: #eff6ff;
+            color: #1e3a8a;
+            border-radius: 0.5rem;
+            font-size: 0.8rem;
+            border: 1px solid #bfdbfe;
+            line-height: 1.5;
+        }
+
+        .explanation.hidden { display: none; }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(15, 23, 42, 0.5);
+            backdrop-filter: blur(4px);
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+        }
+
+        .modal-overlay.hidden { display: none; }
+
+        .modal-card {
+            background-color: #fff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            max-width: 380px;
+            width: 100%;
+            box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 50;
+            padding: 0.75rem 1.25rem;
+            border-radius: 0.75rem;
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .toast.hidden { display: none; }
+        .toast-success { background-color: var(--primary); }
+        .toast-warning { background-color: #e11d48; }
+        .toast-info { background-color: var(--slate-800); }
+    </style>
+</head>
+<body>
+
+    <header class="header-bar">
+        <div class="header-content">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 15c6.667-6 13.333 0 20-6"/><path d="M2 9c6.667 6 13.333 0 20 6"/></svg>
+                </div>
+                <div>
+                    <h1 class="brand-title">高二生物第一段大測複習</h1>
+                    <p class="brand-sub">Chon 2026/10/25</p>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button id="toggleAnsBtn" onclick="toggleOverlayAnswers()" class="btn btn-blue">
+                    <span id="toggleAnsText">顯示答案</span>
+                </button>
+                <button onclick="checkAllAnswers()" class="btn btn-green">
+                    <span>全卷檢查</span>
+                </button>
+                <button onclick="resetAll()" class="btn btn-gray">
+                    <span>重置清空</span>
+                </button>
+                <button onclick="openV2Modal()" class="btn btn-purple">
+                    <span>FS</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-container">
+
+        <div id="scoreDashboard" class="dashboard hidden">
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <div id="scoreRing" class="score-ring">0%</div>
+                <div>
+                    <h3 style="font-weight: 700; font-size: 1.1rem;">全卷測驗得分報告</h3>
+                    <p id="scoreDetailsText" style="font-size: 0.875rem; color: #64748b;">已完成 0 / 0 題填空與選擇題</p>
+                </div>
+            </div>
+            <div id="scoreAdvice" style="font-size: 0.875rem; font-weight: 500; background-color: var(--slate-50); padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--slate-200);">
+                點擊「全卷檢查」可即時對答案並查看精準解析。
+            </div>
+        </div>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第一章</span>
+                <h2 class="card-title">細胞學說的內容、建立過程及意義</h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <p><strong>1. 細胞學說的建立者及內容</strong></p>
+                <p style="margin-left: 1rem;">
+                    (1) 建立者：主要是兩位德國科學家 
+                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["施萊登","施莱登"]'> 
+                    和 
+                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["施旺"]'>。
+                </p>
+                <p style="margin-left: 1rem;">(2) 細胞學說要點：</p>
+                <p style="margin-left: 2rem;">
+                    ① 細胞是一個 
+                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["有機體","有机体"]'>
+                    ，一切動植物都由 
+                    <input type="text" class="blank-input" style="width: 90px;" data-ans='["細胞","细胞"]'>
+                    發育而來，並由 
+                    <input type="text" class="blank-input" style="width: 160px;" data-ans='["細胞和細胞產物","细胞和细胞产物","細胞及細胞產物"]'>
+                    所構成。
+                </p>
+                <p style="margin-left: 2rem;">
+                    ② 細胞是一個 
+                    <input type="text" class="blank-input" style="width: 120px;" data-ans='["相對獨立","相对独立"]'>
+                    的單位，既有它自己的生命，又對 
+                    <input type="text" class="blank-input" style="width: 180px;" data-ans='["與其它共同組成","与其他共同组成","與它共同組成","與其它共同組成的"]'>
+                    整體的生命起作用。
+                </p>
+                <p style="margin-left: 2rem;">
+                    ③ 新細胞是由 
+                    <input type="text" class="blank-input" style="width: 140px;" data-ans='["老細胞分裂","老细胞分裂","老細胞的分裂"]'>
+                    產生的。
+                </p>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第二章</span>
+                <h2 class="card-title">生命系統的結構層次，闡明細胞是基本的生命系統</h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <p><strong>1. 生命系統的結構層次</strong></p>
+                <p style="margin-left: 1rem;">
+                    (1) 生命系統的結構層次：<br>
+                    <input type="text" class="blank-input" style="width: 100%; max-width: 600px; text-align: left;" placeholder="提示：細胞→組織..." data-ans='["細胞→組織→器官→系統→個體→種群→群落→生態系統→生物圈","细胞→组织→器官→系统→个体→种群→群落→生态系统→生物圈","細胞,組織,器官,系統,個體,種群,群落,生態系統,生物圈"]'>
+                </p>
+                <p style="margin-left: 1rem;">
+                    (2) 地球上最基本的生命系統是 
+                    <input type="text" class="blank-input" style="width: 90px;" data-ans='["細胞","细胞"]'>
+                    ，地球上最大的生命系統是 
+                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["生物圈"]'>。
+                </p>
+                <p style="margin-top: 0.5rem;"><strong>2. 種群、群落和生態系統</strong></p>
+                <p style="margin-left: 1rem;">
+                    (1) 種群：在一定的空間範圍內，
+                    <input type="text" class="blank-input" style="width: 200px;" data-ans='["同種生物的所有個體","同种生物的所有个体","同種生物個體"]'>
+                    形成的一個整體是種群。
+                </p>
+                <p style="margin-left: 1rem;">
+                    (2) 群落：
+                    <input type="text" class="blank-input" style="width: 240px;" data-ans='["該區域內所有種群","所有種群","所有生物","所有種群（所有生物）"]'>
+                    形成的更大整體是群落。
+                </p>
+                <p style="margin-left: 1rem;">
+                    (3) 生態系統：在一定的空間範圍內，
+                    <input type="text" class="blank-input" style="width: 220px;" data-ans='["生物群落與它的無機環境","無機環境","无机环境"]'>
+                    相互作用形成的一個整體。
+                </p>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第三章</span>
+                <h2 class="card-title">比較原核細胞和真核細胞，說出它們的區別與聯繫</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">比較項目</th>
+                            <th>原核細胞</th>
+                            <th>真核細胞</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700;">本質區別</td>
+                            <td colspan="2" style="text-align: center; background-color: #fffbeb;">
+                                <input type="text" class="blank-input" style="width: 100%; max-width: 400px;" placeholder="請輸入本質區別" data-ans='["有無以核膜為界限的細胞核","有無核膜包被的細胞核","有无以核膜为界限的细胞核"]'>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">大小</td>
+                            <td>較小（1-10μm）</td>
+                            <td>較大（10-100μm）</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">細胞壁</td>
+                            <td>有（<input type="text" class="blank-input" style="width: 100px;" data-ans='["支原體","支原体"]'> 除外）</td>
+                            <td>植物及真菌細胞有，動物細胞無</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">細胞器</td>
+                            <td>有 <input type="text" class="blank-input" style="width: 100px;" data-ans='["核糖體","核糖体"]'>，無其他細胞器</td>
+                            <td>有核糖體、線粒體等多種細胞器</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">細胞核</td>
+                            <td>有擬核，無 <input type="text" class="blank-input" style="width: 180px;" data-ans='["以核膜為界限的細胞核","核膜","以核膜为界限的细胞核"]'></td>
+                            <td>有核膜，核內有染色體</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">舉例</td>
+                            <td>放線菌、藍細菌、細菌、支原體、衣原體、立克次氏體</td>
+                            <td>真菌、動物、植物</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">統一性</td>
+                            <td colspan="2" style="background-color: #f0fdf4;">
+                                <input type="text" class="blank-input" style="width: 100%; max-width: 500px;" placeholder="提示：都有細胞膜..." data-ans='["都有細胞膜、細胞質、DNA、核糖體","都有細胞膜、細胞質、DNA和核糖體","細胞膜、細胞質、DNA、核糖體"]'>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第四章</span>
+                <h2 class="card-title">細胞組成細胞的元素與化合物</h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <div>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">1. 常見的元素缺乏症（備選：銅、鉬、錳、鐵、鋅）</p>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 0.5rem; background-color: var(--slate-50); padding: 0.75rem; border-radius: 0.5rem;">
+                        <div>缺 <input type="text" class="blank-input" style="width: 60px;" data-ans='["鐵","铁","Fe"]'>：貧血、疲勞、認知功能下降、免疫力低</div>
+                        <div>缺 <input type="text" class="blank-input" style="width: 60px;" data-ans='["鋅","锌","Zn"]'>：免疫力嚴重下降、皮膚炎</div>
+                        <div>缺 <input type="text" class="blank-input" style="width: 60px;" data-ans='["銅","铜","Cu"]'>：貧血（補鐵無效）</div>
+                        <div>缺 <input type="text" class="blank-input" style="width: 60px;" data-ans='["錳","锰","Mn"]'>：生長遲緩、骨骼畸形</div>
+                        <div>缺 <input type="text" class="blank-input" style="width: 60px;" data-ans='["鉬","钼","Mo"]'>：心率呼吸異常、神經損傷、昏迷</div>
+                    </div>
+                </div>
+
+                <div>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">2. 化合物種類及元素組成與含量比例</p>
+                    <div style="background-color: var(--slate-50); padding: 0.75rem; border-radius: 0.5rem;">
+                        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.875rem;">
+                            <li>• 水（ 元素：<input type="text" class="blank-input" style="width: 90px;" data-ans='["H、O","H, O","H2O"]'>，占細胞鮮重最多的化合物 ）</li>
+                            <li>• 無機鹽（ 約占1% ~ 1.5% ）</li>
+                            <li>• 糖類（ 元素：<input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'> ）</li>
+                            <li>• 脂質（ 元素：<input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'>，部分物質含 <input type="text" class="blank-input" style="width: 100px;" data-ans='["N、P","N, P"]'> ）</li>
+                            <li>• 蛋白質（ 元素：<input type="text" class="blank-input" style="width: 130px;" data-ans='["C、H、O、N","C, H, O, N"]'>，一般含 S，占細胞乾重最多 ）</li>
+                            <li>• 核酸（ 元素：<input type="text" class="blank-input" style="width: 130px;" data-ans='["C、H、O、N、P","C, H, O, N, P"]'> ）</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <p style="font-weight: 600; margin-bottom: 0.5rem;">3. 檢測生物組織中的糖類、脂肪和蛋白質實驗原理</p>
+                    <div style="font-size: 0.875rem; display: flex; flex-direction: column; gap: 0.35rem;">
+                        <p>
+                            • 糖類的檢測：還原糖（葡萄糖、麥芽糖、果糖等）＋ 
+                            <input type="text" class="blank-input" style="width: 100px;" data-ans='["斐林","斐林試劑"]'> 試劑 → 
+                            <input type="text" class="blank-input" style="width: 130px;" data-ans='["磚紅色沉澱","砖红色沉淀","磚紅"]'>。
+                        </p>
+                        <p>
+                            • 脂肪的檢測：脂肪 ＋ 
+                            <input type="text" class="blank-input" style="width: 110px;" data-ans='["蘇丹Ⅲ","苏丹Ⅲ","蘇丹3"]'> 染液 → 
+                            <input type="text" class="blank-input" style="width: 90px;" data-ans='["橘黃","橘黄","橘紅色"]'> 色。
+                        </p>
+                        <p>
+                            • 蛋白質的檢測：蛋白質 ＋ 
+                            <input type="text" class="blank-input" style="width: 110px;" data-ans='["雙縮脲","双缩脲"]'> 試劑 → 
+                            <input type="text" class="blank-input" style="width: 80px;" data-ans='["紫","紫色"]'> 色。
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第五章</span>
+                <h2 class="card-title">水在細胞中的存在形式和作用及含量</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>形式</th>
+                            <th>自由水</th>
+                            <th>結合水</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700;">概念</td>
+                            <td>細胞中絕大部分的水呈 <input type="text" class="blank-input" style="width: 80px;" data-ans='["游離","游离"]'> 狀態，可以自由流動</td>
+                            <td>與細胞內的其他物質 <input type="text" class="blank-input" style="width: 80px;" data-ans='["結合","结合"]'> 的水</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">含量</td>
+                            <td>絕大部分水（約95.5%）</td>
+                            <td>少，占細胞水分的4.5%</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">功能</td>
+                            <td>
+                                ① 細胞內 <input type="text" class="blank-input" style="width: 100px;" data-ans='["良好溶劑","良好溶剂"]'><br>
+                                ② 參與 <input type="text" class="blank-input" style="width: 100px;" data-ans='["生化反應","生化反应"]'><br>
+                                ③ 為細胞提供 <input type="text" class="blank-input" style="width: 100px;" data-ans='["液體環境","液体环境"]'><br>
+                                ④ 運送 <input type="text" class="blank-input" style="width: 90px;" data-ans='["營養物質","营养物质"]'> 和 <input type="text" class="blank-input" style="width: 90px;" data-ans='["代謝廢物","代谢废物"]'>
+                            </td>
+                            <td>是細胞結構的 <input type="text" class="blank-input" style="width: 120px;" data-ans='["組成成分","组成成分"]'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 1rem; font-size: 0.875rem; display: flex; flex-direction: column; gap: 0.75rem;">
+                <p style="font-weight: 600;">2. 自由水與結合水的相互轉化及功能驗證</p>
+                <div style="background-color: #fffbeb; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #fef3c7;">
+                    <p style="font-weight: 600; color: #92400e;">(1) 比值轉化規律：</p>
+                    <p>• 比值上升（如升高溫度/代謝增強）：代謝 <input type="text" class="blank-input" style="width: 80px;" data-ans='["增強","增强"]'>，但抗逆性 <input type="text" class="blank-input" style="width: 60px;" data-ans='["差"]'>。（如：癌細胞、萌發種子）</p>
+                    <p>• 比值下降（如越冬/休眠）：代謝 <input type="text" class="blank-input" style="width: 80px;" data-ans='["減弱","减弱"]'>，但抗逆性 <input type="text" class="blank-input" style="width: 60px;" data-ans='["強","强"]'>。（如：乾種子、越冬植物）</p>
+                </div>
+                <div style="background-color: #eff6ff; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid #bfdbfe;">
+                    <p style="font-weight: 600; color: #1e40af;">(2) 種子失水驗證：</p>
+                    <p>• 鮮種子 ──曬乾──➔ 失去大量 <input type="text" class="blank-input" style="width: 90px;" data-ans='["自由水"]'>，代謝減弱。浸泡仍萌發，說明 <input type="text" class="blank-input" style="width: 80px;" data-ans='["保有","保持","具有"]'> 生理活性。</p>
+                    <p>• 乾種子 ──灼燒/烘烤──➔ 失去 <input type="text" class="blank-input" style="width: 90px;" data-ans='["結合水","结合水"]'>，種子死亡。浸泡不再萌發，說明 <input type="text" class="blank-input" style="width: 80px;" data-ans='["失去","喪失"]'> 生理活性。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第六章</span>
+                <h2 class="card-title">無機鹽在細胞中的存在形式和主要作用</h2>
+            </div>
+            <p style="font-size: 0.875rem; margin-bottom: 0.75rem;">
+                1. 無機鹽的存在形式：
+                <input type="text" class="blank-input" style="width: 100%; max-width: 500px; text-align: left;" placeholder="提示：絕大多數以..." data-ans='["絕大多數以離子的形式存在，少量與其他化合物結合","離子形式","離子"]'>
+            </p>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 35%;">主要作用</th>
+                            <th>具體舉例</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700;">
+                                <input type="text" class="blank-input" style="width: 100%;" placeholder="作用①" data-ans='["細胞內某些複雜化合物的重要組成成分","複雜化合物組成成分","組成成分"]'>
+                            </td>
+                            <td>
+                                ① Mg是構成 <input type="text" class="blank-input" style="width: 90px;" data-ans='["葉綠素","叶绿素"]'> 的元素；<br>
+                                ② Fe是構成 <input type="text" class="blank-input" style="width: 90px;" data-ans='["血紅素","血红素"]'> 的元素；<br>
+                                ③ P是組成 <input type="text" class="blank-input" style="width: 130px;" data-ans='["細胞膜","磷脂","細胞膜(磷脂)"]'> 的重要成分。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">
+                                <input type="text" class="blank-input" style="width: 100%;" placeholder="作用②" data-ans='["參與並維持生物體的生命活動","維持生命活動"]'>
+                            </td>
+                            <td>
+                                ① Na+缺乏引發肌肉酸痛無力；<br>
+                                ② 哺乳動物血液中 Ca2+ 含量太低會出現抽搐症狀。
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">維持生物體內的平衡</td>
+                            <td>
+                                <input type="text" class="blank-input" style="width: 100%;" placeholder="如酸鹼平衡與滲透壓" data-ans='["調節細胞酸鹼平衡與滲透壓","調節酸鹼平衡和滲透壓","調節滲透壓和酸鹼平衡"]'>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第七章</span>
+                <h2 class="card-title">糖類總結（並非所有糖都是能源物質）</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>類別</th>
+                            <th>具體種類</th>
+                            <th>分佈</th>
+                            <th>核心功能</th>
+                            <th>是否為能源物質</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="5" style="font-weight: 700; text-align: center;">單糖</td>
+                            <td>葡萄糖</td>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["動植物","動植物細胞"]'> 細胞</td>
+                            <td>細胞生命活動 <input type="text" class="blank-input" style="width: 80px;" data-ans='["主要"]'> 能源物質</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>果糖</td>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["植物","植物細胞"]'> 細胞</td>
+                            <td>植物細胞能源物質</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>半乳糖</td>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["動物","動物細胞"]'> 細胞</td>
+                            <td>合成乳糖原料</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>核糖</td>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["動植物","動植物細胞"]'> 細胞</td>
+                            <td>構成 <input type="text" class="blank-input" style="width: 60px;" data-ans='["RNA"]'> 的成分</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["否","❌"]'></td>
+                        </tr>
+                        <tr>
+                            <td>去氧核糖</td>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["動植物","動植物細胞"]'> 細胞</td>
+                            <td>構成 <input type="text" class="blank-input" style="width: 60px;" data-ans='["DNA"]'> 的成分</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["否","❌"]'></td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3" style="font-weight: 700; text-align: center;">二糖</td>
+                            <td>蔗糖（葡萄糖 + <input type="text" class="blank-input" style="width: 60px;" data-ans='["果糖"]'>）</td>
+                            <td>植物（甘蔗、甜菜）</td>
+                            <td>植物儲能、運輸糖類</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>麥芽糖（葡萄糖 + <input type="text" class="blank-input" style="width: 60px;" data-ans='["葡萄糖"]'>）</td>
+                            <td>植物（發芽種子）</td>
+                            <td>種子萌發供能</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>乳糖（葡萄糖 + <input type="text" class="blank-input" style="width: 60px;" data-ans='["半乳糖"]'>）</td>
+                            <td>動物乳汁</td>
+                            <td>幼崽供能</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3" style="font-weight: 700; text-align: center;">多糖</td>
+                            <td>澱粉</td>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["植物","植物細胞"]'> 細胞</td>
+                            <td>植物細胞主要 <input type="text" class="blank-input" style="width: 90px;" data-ans='["儲能物質"]'></td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>糖原</td>
+                            <td>動物 <input type="text" class="blank-input" style="width: 100px;" data-ans='["肝臟、肌肉","肝臟和肌肉"]'></td>
+                            <td>動物細胞主要儲能物質</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
+                        </tr>
+                        <tr>
+                            <td>纖維素</td>
+                            <td>植物 <input type="text" class="blank-input" style="width: 90px;" data-ans='["細胞壁"]'></td>
+                            <td>構成細胞壁、支持保護</td>
+                            <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["否","❌"]'></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第八章</span>
+                <h2 class="card-title">脂質的主要種類和作用</h2>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>類別</th>
+                            <th>細分種類</th>
+                            <th>元素</th>
+                            <th>核心功能</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="font-weight: 700;">脂肪</td>
+                            <td>甘油三酯</td>
+                            <td><input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'></td>
+                            <td>細胞內良好的 <input type="text" class="blank-input" style="width: 100px;" data-ans='["儲能物質"]'>；保溫、緩衝、減壓、保護內臟</td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: 700;">磷脂</td>
+                            <td>磷脂分子</td>
+                            <td><input type="text" class="blank-input" style="width: 130px;" data-ans='["C、H、O、N、P","C, H, O, N, P"]'></td>
+                            <td><input type="text" class="blank-input" style="width: 130px;" data-ans='["細胞膜","生物膜系統"]'> 的基本支架，構成生物膜系統</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3" style="font-weight: 700;">固醇</td>
+                            <td>膽固醇</td>
+                            <td><input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'></td>
+                            <td>1. 構成 <input type="text" class="blank-input" style="width: 100px;" data-ans='["動物細胞膜"]'>； 2. 參與血液中 <input type="text" class="blank-input" style="width: 80px;" data-ans='["脂質"]'> 運輸</td>
+                        </tr>
+                        <tr>
+                            <td><input type="text" class="blank-input" style="width: 90px;" data-ans='["性激素"]'></td>
+                            <td><input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'></td>
+                            <td>促進生殖器官發育、生殖細胞形成，維持第二性徵</td>
+                        </tr>
+                        <tr>
+                            <td>維生素D</td>
+                            <td><input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'></td>
+                            <td>促進 <input type="text" class="blank-input" style="width: 60px;" data-ans='["鈣","Ca"]'> 和 <input type="text" class="blank-input" style="width: 60px;" data-ans='["磷","P"]'> 的吸收</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第九章</span>
+                <h2 class="card-title">氨基酸的結構通式和特點</h2>
+            </div>
+            <div style="font-size: 0.875rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <p>
+                    1. 氨基酸的種類： <input type="text" class="blank-input" style="width: 70px;" data-ans='["21","21種"]'> 種。<br>
+                    • 非必需氨基酸： <input type="text" class="blank-input" style="width: 100px;" data-ans='["13種","13"]'> （人體細胞能夠合成的氨基酸）。<br>
+                    • 必需氨基酸： <input type="text" class="blank-input" style="width: 100px;" data-ans='["8種","8"]'> （人體細胞不能合成的氨基酸，嬰兒9種）。
+                </p>
+                <div>
+                    <p style="font-weight: 600;">2. 氨基酸的結構特點：</p>
+                    <p style="margin-left: 1rem;">• 組成元素： <input type="text" class="blank-input" style="width: 120px;" data-ans='["C、H、O、N","C, H, O, N"]'>，有的含有 <input type="text" class="blank-input" style="width: 90px;" data-ans='["S、Fe","S, Fe","S"]'> 等。</p>
+                    <p style="margin-left: 1rem;">• 結構特點：至少有一個—NH2 和一個—COOH 連接在 <input type="text" class="blank-input" style="width: 150px;" data-ans='["同一個碳原子","同一個碳原子上"]'> 上。</p>
+                    <p style="margin-left: 1rem;">• 種類差異：氨基酸的種類和理化性質差異是由 <input type="text" class="blank-input" style="width: 90px;" data-ans='["R基","R基團"]'> 的不同導致的。</p>
+                </div>
+                <p>
+                    3. 書寫格式：氨基、羧基、R基分別為：
+                    <input type="text" class="blank-input" style="width: 90px;" data-ans='["—NH2","-NH2"]'>、
+                    <input type="text" class="blank-input" style="width: 90px;" data-ans='["—COOH","-COOH"]'>、
+                    <input type="text" class="blank-input" style="width: 70px;" data-ans='["—R","-R"]'>。
+                </p>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge">第十章</span>
+                <h2 class="card-title">氨基酸脫水縮合形成肽鏈的過程</h2>
+            </div>
+            <div style="font-size: 0.875rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                <p>1. 脫水縮合的場所： <input type="text" class="blank-input" style="width: 100px;" data-ans='["核糖體","核糖体"]'></p>
+                <p>
+                    2. 概念：一個氨基酸分子的 <input type="text" class="blank-input" style="width: 90px;" data-ans='["羧基","—COOH"]'> (—COOH) 和 <input type="text" class="blank-input" style="width: 90px;" data-ans='["另一個","另一个"]'> 氨基酸分子的 <input type="text" class="blank-input" style="width: 90px;" data-ans='["氨基","—NH2"]'> (—NH2) 脫去 <input type="text" class="blank-input" style="width: 80px;" data-ans='["一分子","1分子"]'> 水而連接起來。
+                </p>
+                <div>
+                    <p style="font-weight: 600;">3. 分析蛋白質結構多樣性的原因：</p>
+                    <p style="margin-left: 1rem;">• 氨基酸層面： <input type="text" class="blank-input" style="width: 100%; max-width: 400px;" placeholder="種類、數量、排列順序不同" data-ans='["氨基酸的種類、數量、排列順序不同","氨基酸種類、數量、排列順序"]'></p>
+                    <p style="margin-left: 1rem;">• 肽鏈層面： <input type="text" class="blank-input" style="width: 100%; max-width: 400px;" placeholder="肽鏈數目、盤曲折疊方式及空間結構" data-ans='["肽鏈的數目、盤曲折疊方式及形成的空間結構不同","肽鏈數目、盤曲折疊方式及空間結構"]'></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge badge-purple">第十一章</span>
+                <h2 class="card-title">選擇題（單項選擇題，共6題）</h2>
+            </div>
+
+            <div class="mcq-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem;" data-correct="B">
+                <p style="font-weight: 600;">1. 某蛋白質由甲、乙、丙3條肽鏈組成，每條肽鏈均由60個氨基酸形成，結構如圖所示。已知1個二硫鍵由2個-SH基團脫去2個H連接形成。下列敘述正確的是（ ）</p>
+
+                <div style="margin: 0.75rem 0; display: flex; justify-content: center; background-color: #fff; padding: 0.75rem; border-radius: 0.5rem; border: 1px solid var(--slate-200);">
+                    <svg width="240" height="130" viewBox="0 0 240 130">
+                        <rect x="110" y="10" width="10" height="90" fill="#3b82f6" rx="2"/>
+                        <text x="110" y="8" font-size="10" font-weight="bold" fill="#1e3a8a">甲</text>
+                        <rect x="30" y="30" width="10" height="90" fill="#10b981" rx="2"/>
+                        <text x="30" y="26" font-size="10" font-weight="bold" fill="#065f46">乙</text>
+                        <rect x="190" y="30" width="10" height="90" fill="#f59e0b" rx="2"/>
+                        <text x="190" y="26" font-size="10" font-weight="bold" fill="#78350f">丙</text>
+                        
+                        <line x1="40" y1="65" x2="110" y2="40" stroke="#ef4444" stroke-width="2"/>
+                        <text x="70" y="48" font-size="9" fill="#ef4444" font-weight="bold">-S-S-</text>
+                        <line x1="120" y1="75" x2="190" y2="50" stroke="#ef4444" stroke-width="2"/>
+                        <text x="150" y="58" font-size="9" fill="#ef4444" font-weight="bold">-S-S-</text>
+                        <line x1="40" y1="105" x2="190" y2="105" stroke="#8b5cf6" stroke-width="2"/>
+                        <text x="100" y="100" font-size="9" fill="#8b5cf6" font-weight="bold">-NH-CO-</text>
+                    </svg>
+                </div>
+
+                <button onclick="selectOption(this, 'A')" class="opt-btn">A. 3條肽鏈間相互通過二硫鍵連接</button>
+                <button onclick="selectOption(this, 'B')" class="opt-btn">B. 該蛋白質至少含有3個游離的氨基或羧基</button>
+                <button onclick="selectOption(this, 'C')" class="opt-btn">C. 該蛋白質形成過程中共減少了3204相對分子質量</button>
+                <button onclick="selectOption(this, 'D')" class="opt-btn">D. 氨基酸脫水縮合產生水，其中氧來自氨基和羧基</button>
+
+                <div class="explanation hidden">
+                    <strong>【詳細解析】正確答案：B</strong><br>
+                    • A錯誤：乙鏈與丙鏈之間通過肽鍵（-NH-CO-）連接，並非全由二硫鍵連接。<br>
+                    • B正確：該蛋白質包含3條肽鏈，每條鏈至少保留1個游離氨基和1個游離羧基，故至少含有3個。<br>
+                    • C錯誤：脫水縮合形成的肽鍵數為 (180-3)+1(乙丙間肽鍵)=178個，失水178×18=3204，加上2個二硫鍵脫4個H（4），共減少 3208。<br>
+                    • D錯誤：脫水縮合產生的水中的氧全部來自羧基（—COOH）。
+                </div>
+            </div>
+
+            <div class="mcq-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem;" data-correct="B">
+                <p style="font-weight: 600;">2. α-乳清蛋白被譽為蛋白之王，它由123個氨基酸組成，其不僅含有組成人體蛋白質的全部氨基酸，還在代謝調節中起到重要作用。下列說法正確的是（ ）</p>
+                <button onclick="selectOption(this, 'A')" class="opt-btn">A. 組成α-乳清蛋白的各種氨基酸中，氨基和羧基都連接在同一個碳原子上</button>
+                <button onclick="selectOption(this, 'B')" class="opt-btn">B. α-乳清蛋白由21種氨基酸構成，其中包括人體不能合成的8種必需氨基酸</button>
+                <button onclick="selectOption(this, 'C')" class="opt-btn">C. 高溫會使α-乳清蛋白變性而不利於人體消化吸收，因此牛奶不建議加熱飲用</button>
+                <button onclick="selectOption(this, 'D')" class="opt-btn">D. 該α-乳清蛋白多樣性的原因是組成該蛋白質的氨基酸排列順序及肽鏈的空間結構不同</button>
+                <div class="explanation hidden">
+                    <strong>【詳細解析】正確答案：B</strong><br>
+                    • A錯誤：氨基酸中“至少有一個氨基和一個羧基”連接在同一個碳原子上，R基團上也可能帶有額外的氨基/羧基。<br>
+                    • B正確：包含人體細胞不能合成的8種必需氨基酸。<br>
+                    • C錯誤：高溫使蛋白質變性後肽鏈伸展，反而更有利於蛋白酶水解消化。<br>
+                    • D錯誤：蛋白質多樣性是針對不同種蛋白質而言，單一的α-乳清蛋白無“多樣性”說法。
+                </div>
+            </div>
+
+            <div class="mcq-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem;" data-correct="C">
+                <p style="font-weight: 600;">3. ①②③④⑤是使用顯微鏡的幾個步驟，圖(1)(2)為顯微鏡觀察中的兩個視野，其中細胞甲為主要觀察對象，由視野(1)到視野(2)時，操作過程的正確順序是（ ）</p>
+                <p style="font-size: 0.75rem; color: #64748b;">①轉動粗准焦螺旋 ②轉動細准焦螺旋 ③調節光圈 ④轉動轉換器 ⑤移動裝片</p>
+
+                <div style="margin: 0.5rem 0; display: flex; justify-content: center; gap: 1.5rem; background-color: #fff; padding: 0.5rem; border-radius: 0.5rem; border: 1px solid var(--slate-200);">
+                    <div style="text-align: center;">
+                        <svg width="90" height="90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+                            <circle cx="25" cy="70" r="8" fill="#3b82f6"/>
+                            <text x="21" y="65" font-size="9" font-weight="bold" fill="#1e3a8a">甲</text>
+                            <circle cx="75" cy="30" r="4" fill="#94a3b8"/>
+                        </svg>
+                        <p style="font-size: 0.75rem; font-weight: 600;">視野 (1)</p>
+                    </div>
+                    <div style="text-align: center;">
+                        <svg width="90" height="90" viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="45" fill="#f8fafc" stroke="#cbd5e1" stroke-width="3"/>
+                            <circle cx="50" cy="50" r="18" fill="#3b82f6"/>
+                            <text x="44" y="42" font-size="12" font-weight="bold" fill="#ffffff">甲</text>
+                        </svg>
+                        <p style="font-size: 0.75rem; font-weight: 600;">視野 (2)</p>
+                    </div>
+                </div>
+
+                <button onclick="selectOption(this, 'A')" class="opt-btn">A. ①②③④</button>
+                <button onclick="selectOption(this, 'B')" class="opt-btn">B. ⑤④②③</button>
+                <button onclick="selectOption(this, 'C')" class="opt-btn">C. ⑤④③②</button>
+                <button onclick="selectOption(this, 'D')" class="opt-btn">D. ④⑤①②</button>
+                <div class="explanation hidden">
+                    <strong>【詳細解析】正確答案：C</strong><br>
+                    由低倍鏡換高倍鏡操作順序為：移動裝片(⑤，將目標甲移至視野中央) ➔ 轉動轉換器(④，換高倍物鏡) ➔ 調節光圈/反光鏡(③，調亮視野) ➔ 轉動細准焦螺旋(②，微調焦距清晰)。換高倍鏡後嚴禁轉動粗准焦螺旋。
+                </div>
+            </div>
+
+            <div class="mcq-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem;" data-correct="B">
+                <p style="font-weight: 600;">4. 下列有關生物的共同特徵的敘述，正確的是（ ）</p>
+                <button onclick="selectOption(this, 'A')" class="opt-btn">A. 噬菌體、大腸桿菌都含有細胞膜</button>
+                <button onclick="selectOption(this, 'B')" class="opt-btn">B. 大腸桿菌、念珠藍細菌都含有核糖體</button>
+                <button onclick="selectOption(this, 'C')" class="opt-btn">C. 變形蟲、衣藻和藍細菌都含有細胞壁</button>
+                <button onclick="selectOption(this, 'D')" class="opt-btn">D. 酵母菌屬於細菌，無成形的細胞核</button>
+                <div class="explanation hidden">
+                    <strong>【詳細解析】正確答案：B</strong><br>
+                    • A錯誤：噬菌體為病毒，無細胞結構，不含細胞膜。<br>
+                    • B正確：大腸桿菌與念珠藍細菌均為原核生物，唯一的細胞器是核糖體。<br>
+                    • C錯誤：變形蟲是單細胞動物，不含細胞壁。<br>
+                    • D錯誤：酵母菌是真菌（真核生物），具有成形的細胞核。
+                </div>
+            </div>
+
+            <div class="mcq-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; margin-bottom: 1rem;" data-correct="C">
+                <p style="font-weight: 600;">5. 關於下列四圖的敘述中，正確的是（ ）</p>
+                <p style="font-size: 0.75rem; color: #64748b;">圖甲：氨基酸 | 圖乙：小麥失水 | 圖丙：核苷酸 (a:五碳糖, m:鹼基, b:核苷酸) | 圖丁：二糖 C12H22O11</p>
+                <button onclick="selectOption(this, 'A')" class="opt-btn">A. 甲圖和丙圖分別是構成生物體遺傳信息的攜帶者和生命活動的體現者的基本單位</button>
+                <button onclick="selectOption(this, 'B')" class="opt-btn">B. 乙圖小麥種子在曬乾和烘烤過程中所失去的水主要都是自由水</button>
+                <button onclick="selectOption(this, 'C')" class="opt-btn">C. 若丙圖中a為脫氧核糖，則由b構成的核酸完全水解，得到的化合物最多有6種</button>
+                <button onclick="selectOption(this, 'D')" class="opt-btn">D. 在小鼠的體細胞內檢測到的化合物丁很可能是蔗糖</button>
+                <div class="explanation hidden">
+                    <strong>【詳細解析】正確答案：C</strong><br>
+                    • A錯誤：甲（氨基酸）是生命活動體現者（蛋白質）的基本單位；丙（核苷酸）是遺傳信息攜帶者（核酸）的基本單位，兩者順序顛倒。<br>
+                    • B錯誤：烘烤過程失去的水主要是結合水。<br>
+                    • C正確：若a為脫氧核糖，則核酸為DNA，完全水解可得：1分子磷酸 ＋ 1分子脫氧核糖 ＋ 4種鹼基（A/T/C/G），共 6 種化合物。<br>
+                    • D錯誤：蔗糖是植物特有二糖，小鼠體內不會含有蔗糖。
+                </div>
+            </div>
+
+            <div class="mcq-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem;" data-correct="A">
+                <p style="font-weight: 600;">6. 下列有關糖類的敘述，正確的選項有（ ）</p>
+                <div style="font-size: 0.75rem; background-color: #fff; padding: 0.5rem; border-radius: 0.375rem; border: 1px solid var(--slate-200); margin: 0.35rem 0;">
+                    <p>① 澱粉和蔗糖均是穀物中含量豐富的多糖</p>
+                    <p>② 葡萄糖、核糖、去氧核糖是動植物細胞共有的單糖</p>
+                    <p>③ 纖維素、澱粉和幾丁質都是植物細胞特有的多糖</p>
+                    <p>④ 人體攝入的澱粉不能直接被細胞吸收利用</p>
+                    <p>⑤ 纖維素和肌糖原均能儲存能量，可作為儲能物質</p>
+                </div>
+                <button onclick="selectOption(this, 'A')" class="opt-btn">A. 兩項</button>
+                <button onclick="selectOption(this, 'B')" class="opt-btn">B. 三項</button>
+                <button onclick="selectOption(this, 'C')" class="opt-btn">C. 四項</button>
+                <button onclick="selectOption(this, 'D')" class="opt-btn">D. 五項</button>
+                <div class="explanation hidden">
+                    <strong>【詳細解析】正確答案：A（共2項正確）</strong><br>
+                    • ①錯誤：蔗糖是二糖，非多糖。<br>
+                    • ②正確：葡萄糖、核糖、去氧核糖為動植物共有單糖。<br>
+                    • ③錯誤：幾丁質（甲殼素）主要存在於甲殼類動物和真菌中，非植物特有。<br>
+                    • ④正確：澱粉是大分子，必須水解為葡萄糖才能被吸收。<br>
+                    • ⑤錯誤：纖維素是結構物質，不能被人類/動物消化供能。<br>
+                    故正確選項為 ② 和 ④，共2項。
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge badge-amber">第十二章</span>
+                <h2 class="card-title">綜合填空題</h2>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                <p style="font-weight: 600;">1. 細菌是典型的原核生物，通過電子顯微鏡觀察，據圖回答問題：</p>
+
+                <div style="display: flex; justify-content: center; background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; border: 1px solid var(--slate-200);">
+                    <svg width="320" height="130" viewBox="0 0 320 130">
+                        <path d="M 230 65 Q 260 45, 280 75 T 310 65" fill="none" stroke="#ef4444" stroke-width="3"/>
+                        <text x="285" y="50" font-size="11" font-weight="bold" fill="#ef4444">[5] 鞭毛</text>
+
+                        <rect x="50" y="25" width="180" height="80" rx="40" fill="#d1fae5" stroke="#10b981" stroke-width="3"/>
+                        <text x="5" y="35" font-size="10" font-weight="bold" fill="#047857">[1] 細胞壁</text>
+                        <line x1="45" y1="35" x2="65" y2="40" stroke="#047857" stroke-width="1.5"/>
+
+                        <rect x="56" y="31" width="168" height="68" rx="34" fill="#a7f3d0" stroke="#059669" stroke-width="2"/>
+                        <text x="5" y="70" font-size="10" font-weight="bold" fill="#059669">[2] 細胞膜</text>
+                        <line x1="45" y1="70" x2="68" y2="65" stroke="#059669" stroke-width="1.5"/>
+
+                        <path d="M 100 65 Q 120 45, 140 65 T 180 65" fill="none" stroke="#2563eb" stroke-width="4" stroke-dasharray="2,2"/>
+                        <text x="125" y="120" font-size="10" font-weight="bold" fill="#2563eb">[3] 擬核 DNA</text>
+                        <line x1="140" y1="108" x2="140" y2="73" stroke="#2563eb" stroke-width="1.5"/>
+
+                        <circle cx="100" cy="45" r="2" fill="#000"/>
+                        <circle cx="170" cy="80" r="2" fill="#000"/>
+                        <text x="180" y="120" font-size="10" font-weight="bold" fill="#475569">[4] 細胞質</text>
+                    </svg>
+                </div>
+
+                <div style="font-size: 0.875rem; display: flex; flex-direction: column; gap: 0.35rem; margin-left: 0.5rem;">
+                    <p>
+                        (1) 其遺傳物質是 DNA，分佈於 [<input type="text" class="blank-input" style="width: 60px;" data-ans='["3"]'>] 
+                        <input type="text" class="blank-input" style="width: 100px;" data-ans='["擬核","拟核"]'> 中。
+                    </p>
+                    <p>
+                        (2) 該菌與其他菌種相比，特有的運動結構是 [<input type="text" class="blank-input" style="width: 60px;" data-ans='["5"]'>] 
+                        <input type="text" class="blank-input" style="width: 100px;" data-ans='["鞭毛"]'>。
+                    </p>
+                    <p>
+                        (3) 該細胞與植物細胞相比，共有的結構是細胞質、細胞膜和 
+                        <input type="text" class="blank-input" style="width: 100px;" data-ans='["細胞壁","细胞壁"]'>。
+                    </p>
+                </div>
+
+                <div style="border-top: 1px solid var(--slate-200); padding-top: 0.75rem;">
+                    <p style="font-weight: 600;">2. 蛋白質水解與相對分子質量計算：</p>
+                    <p style="font-size: 0.875rem; margin-top: 0.35rem;">
+                        要水解一個由 3 條肽鏈構成，100 個氨基酸組成的蛋白質大分子，需有 
+                        <input type="text" class="blank-input" style="width: 70px;" data-ans='["97"]'> 個水分子參加反應，被打斷了 
+                        <input type="text" class="blank-input" style="width: 70px;" data-ans='["97"]'> 個肽鍵；如果氨基酸的平均相對分子質量為 128，此蛋白質分子的相對分子質量為 
+                        <input type="text" class="blank-input" style="width: 110px;" data-ans='["11054"]'>。
+                    </p>
+                    <div style="margin-top: 0.5rem; background-color: #fffbeb; padding: 0.5rem 0.75rem; border-radius: 0.375rem; font-size: 0.75rem; color: #92400e; border: 1px solid #fef3c7;">
+                        <strong>【計算公式解析】</strong><br>
+                        • 水分子數 / 肽鍵數 ＝ 氨基酸數 － 肽鏈數 ＝ 100 － 3 ＝ <strong>97</strong> 個。<br>
+                        • 蛋白質相對分子質量 ＝ 氨基酸總質量 － 脫去水分子總質量 ＝ 100 × 128 － 97 × 18 ＝ 12800 － 1746 ＝ <strong>11054</strong>。
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="v2Modal" class="modal-overlay hidden">
+        <div class="modal-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <h3 style="font-size: 1rem; font-weight: 700;">FS</h3>
+                <button onclick="closeV2Modal()" style="border: none; background: none; font-size: 1.25rem; cursor: pointer; color: #94a3b8;">&times;</button>
+            </div>
+            <p style="font-size: 0.75rem; color: #64748b; margin-bottom: 0.75rem;">請輸入密碼以解鎖：</p>
+            <input type="password" id="v2PasswordInput" placeholder="請輸入密碼" style="width: 100%; padding: 0.5rem; border: 1px solid var(--slate-200); border-radius: 0.375rem; font-size: 0.875rem; outline: none; margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+                <button onclick="closeV2Modal()" class="btn btn-gray">取消</button>
+                <button onclick="verifyV2Password()" class="btn btn-purple">確認驗證</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast hidden">
+        <span id="toastMsg">消息通知</span>
+    </div>
+
+    <script>
+        let isAnswerOverlayMode = false;
+        const userSavedInputs = new Map();
+        const V2_PASSWORD_HASH = "f8c63ab5c45f390df37ef47b04a100d16d4e05b2c6352313a1eeb13b6c5c21cb";
+
+        async function sha256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        function normalizeText(str) {
+            if (!str) return '';
+            let s = str.trim().toLowerCase();
+            s = s.replace(/细胞/g, '細胞')
+                 .replace(/有机体/g, '有機體')
+                 .replace(/拟核/g, '擬核')
+                 .replace(/鞭毛/g, '鞭毛')
+                 .replace(/核糖体/g, '核糖體')
+                 .replace(/斐林/g, '斐林')
+                 .replace(/苏丹/g, '蘇丹')
+                 .replace(/双缩脲/g, '雙縮脲')
+                 .replace(/砖红/g, '磚紅')
+                 .replace(/橘黄/g, '橘黃')
+                 .replace(/游离/g, '游離')
+                 .replace(/结合/g, '結合')
+                 .replace(/叶绿素/g, '葉綠素')
+                 .replace(/血红素/g, '血紅素')
+                 .replace(/磷脂/g, '磷脂')
+                 .replace(/蔗糖/g, '蔗糖')
+                 .replace(/麦芽糖/g, '麥芽糖')
+                 .replace(/乳糖/g, '乳糖')
+                 .replace(/淀粉/g, '澱粉')
+                 .replace(/糖原/g, '糖原')
+                 .replace(/纤维素/g, '纖維素')
+                 .replace(/胆固醇/g, '膽固醇')
+                 .replace(/性激素/g, '性激素')
+                 .replace(/维生素/g, '維生素')
+                 .replace(/羧基/g, '羧基')
+                 .replace(/氨基/g, '氨基')
+                 .replace(/—/g, '-').replace(/–/g, '-').replace(/\s+/g, '');
+            return s;
+        }
+
+        function toggleOverlayAnswers() {
+            isAnswerOverlayMode = !isAnswerOverlayMode;
+            const btn = document.getElementById('toggleAnsBtn');
+            const btnText = document.getElementById('toggleAnsText');
+            const inputs = document.querySelectorAll('.blank-input');
+
+            if (isAnswerOverlayMode) {
+                btn.className = "btn btn-amber";
+                btnText.textContent = "隱藏答案";
+
+                inputs.forEach((input, index) => {
+                    userSavedInputs.set(index, input.value);
+                    const targetAnswers = JSON.parse(input.getAttribute('data-ans') || '[""]');
+                    input.value = targetAnswers[0];
+                    input.readOnly = true;
+                    input.classList.add('ans-overlay');
+                });
+
+                document.querySelectorAll('.explanation').forEach(el => el.classList.remove('hidden'));
+                
+                document.querySelectorAll('.mcq-card').forEach(card => {
+                    const correctChoice = card.getAttribute('data-correct');
+                    card.querySelectorAll('.opt-btn').forEach(btn => {
+                        if (btn.textContent.startsWith(correctChoice)) {
+                            btn.style.backgroundColor = "#dcfce7";
+                            btn.style.borderColor = "#16a34a";
+                            btn.style.color = "#15803d";
+                            btn.style.fontWeight = "bold";
+                        }
+                    });
+                });
+
+                showToast("已在填空框內覆蓋顯示標準答案！", "success");
+            } else {
+                btn.className = "btn btn-blue";
+                btnText.textContent = "顯示答案";
+
+                inputs.forEach((input, index) => {
+                    input.value = userSavedInputs.get(index) || '';
+                    input.readOnly = false;
+                    input.classList.remove('ans-overlay', 'correct', 'incorrect');
+                });
+
+                document.querySelectorAll('.explanation').forEach(el => el.classList.add('hidden'));
+
+                document.querySelectorAll('.mcq-card .opt-btn').forEach(btn => {
+                    btn.style.backgroundColor = "#fff";
+                    btn.style.borderColor = "var(--slate-200)";
+                    btn.style.color = "var(--slate-700)";
+                    btn.style.fontWeight = "normal";
+                    btn.style.textDecoration = "none";
+                });
+
+                showToast("已恢復自主答題模式", "info");
+            }
+        }
+
+        function selectOption(btnElement, choice) {
+            if (isAnswerOverlayMode) return;
+
+            const parentCard = btnElement.closest('.mcq-card');
+            const options = parentCard.querySelectorAll('.opt-btn');
+            
+            options.forEach(opt => {
+                opt.style.backgroundColor = "#fff";
+                opt.style.borderColor = "var(--slate-200)";
+                opt.style.color = "var(--slate-700)";
+                opt.style.fontWeight = "normal";
+            });
+
+            btnElement.style.backgroundColor = "#eff6ff";
+            btnElement.style.borderColor = "#2563eb";
+            btnElement.style.color = "#1d4ed8";
+            btnElement.style.fontWeight = "600";
+            parentCard.setAttribute('data-selected', choice);
+        }
+
+        function checkAllAnswers() {
+            if (isAnswerOverlayMode) {
+                showToast("請先關閉答案覆蓋模式後再進行自主檢查！", "warning");
+                return;
+            }
+
+            let totalItems = 0;
+            let correctItems = 0;
+
+            const inputs = document.querySelectorAll('.blank-input');
+            inputs.forEach(input => {
+                totalItems++;
+                const userVal = normalizeText(input.value);
+                const targetAnswers = JSON.parse(input.getAttribute('data-ans') || '[]');
+                
+                const isCorrect = targetAnswers.some(ans => normalizeText(ans) === userVal);
+
+                input.classList.remove('correct', 'incorrect');
+                if (userVal !== '') {
+                    if (isCorrect) {
+                        input.classList.add('correct');
+                        correctItems++;
+                    } else {
+                        input.classList.add('incorrect');
+                    }
+                }
+            });
+
+            const mcqCards = document.querySelectorAll('.mcq-card');
+            mcqCards.forEach(card => {
+                totalItems++;
+                const correctChoice = card.getAttribute('data-correct');
+                const selectedChoice = card.getAttribute('data-selected');
+                const explanation = card.querySelector('.explanation');
+                const options = card.querySelectorAll('.opt-btn');
+
+                explanation.classList.remove('hidden');
+
+                options.forEach(opt => {
+                    const optChoice = opt.textContent.trim().charAt(0);
+                    opt.style.backgroundColor = "#fff";
+
+                    if (optChoice === correctChoice) {
+                        opt.style.backgroundColor = "#dcfce7";
+                        opt.style.borderColor = "#16a34a";
+                        opt.style.color = "#15803d";
+                        opt.style.fontWeight = "bold";
+                    }
+                    if (selectedChoice && optChoice === selectedChoice && selectedChoice !== correctChoice) {
+                        opt.style.backgroundColor = "#ffe4e6";
+                        opt.style.borderColor = "#e11d48";
+                        opt.style.color = "#be123c";
+                        opt.style.textDecoration = "line-through";
+                    }
+                });
+
+                if (selectedChoice === correctChoice) {
+                    correctItems++;
+                }
+            });
+
+            const percentage = Math.round((correctItems / totalItems) * 100);
+            
+            const dashboard = document.getElementById('scoreDashboard');
+            const scoreRing = document.getElementById('scoreRing');
+            const scoreDetailsText = document.getElementById('scoreDetailsText');
+            const scoreAdvice = document.getElementById('scoreAdvice');
+
+            dashboard.classList.remove('hidden');
+            scoreRing.textContent = `${percentage}%`;
+            scoreDetailsText.textContent = `答對 ${correctItems} / 共 ${totalItems} 題（填空與選擇題）`;
+
+            if (percentage >= 90) {
+                scoreAdvice.textContent = "🎉 優秀！概念非常扎實，請繼續保持！";
+            } else if (percentage >= 70) {
+                scoreAdvice.textContent = "👍 良好！請複習標紅題目的詳細解析。";
+            } else {
+                scoreAdvice.textContent = "💪 仍需努力！建議重讀筆記並點擊「顯示答案」對照。";
+            }
+
+            dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            showToast(`檢查完成！正確率 ${percentage}%`, "success");
+        }
+
+        function resetAll() {
+            if (isAnswerOverlayMode) {
+                toggleOverlayAnswers();
+            }
+
+            document.querySelectorAll('.blank-input').forEach(input => {
+                input.value = '';
+                input.readOnly = false;
+                input.classList.remove('correct', 'incorrect', 'ans-overlay');
+            });
+
+            document.querySelectorAll('.mcq-card').forEach(card => {
+                card.removeAttribute('data-selected');
+                card.querySelectorAll('.opt-btn').forEach(btn => {
+                    btn.style.backgroundColor = "#fff";
+                    btn.style.borderColor = "var(--slate-200)";
+                    btn.style.color = "var(--slate-700)";
+                    btn.style.fontWeight = "normal";
+                    btn.style.textDecoration = "none";
+                });
+                card.querySelector('.explanation').classList.add('hidden');
+            });
+
+            document.getElementById('scoreDashboard').classList.add('hidden');
+            userSavedInputs.clear();
+            showToast("已清空重置所有內容", "info");
+        }
+
+        function openV2Modal() {
+            document.getElementById('v2Modal').classList.remove('hidden');
+            document.getElementById('v2PasswordInput').focus();
+        }
+
+        function closeV2Modal() {
+            document.getElementById('v2Modal').classList.add('hidden');
+            document.getElementById('v2PasswordInput').value = '';
+        }
+
+        async function verifyV2Password() {
+            const pwd = document.getElementById('v2PasswordInput').value;
+            const hashed = await sha256(pwd);
+
+            if (hashed === V2_PASSWORD_HASH) {
+                closeV2Modal();
+                showToast("✅ 解鎖成功！已驗證", "success");
+            } else {
+                showToast("❌ 密碼錯誤，請重新輸入", "warning");
+            }
+        }
+
+        function showToast(msg, type = "info") {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toastMsg');
+
+            toastMsg.textContent = msg;
+
+            if (type === "success") {
+                toast.className = "toast toast-success";
+            } else if (type === "warning") {
+                toast.className = "toast toast-warning";
+            } else {
+                toast.className = "toast toast-info";
+            }
+
+            toast.classList.remove('hidden');
+
+            setTimeout(() => {
+                toast.classList.add('hidden');
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
