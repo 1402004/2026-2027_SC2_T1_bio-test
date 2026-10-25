@@ -1327,8 +1327,7 @@
             const hashed = await sha256(pwd);
 
             if (hashed === V2_PASSWORD_HASH) {
-                closeV2Modal();
-                showToast("✅ 解鎖成功！已驗證", "success");
+                window.location.href = "index-fs.html";
             } else {
                 showToast("❌ 密碼錯誤，請重新輸入", "warning");
             }
