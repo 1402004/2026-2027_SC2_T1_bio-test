@@ -10,7 +10,6 @@
             --primary-dark: #15803d;
             --primary-light: #f0fdf4;
             --accent: #2563eb;
-            --purple: #9333ea;
             --slate-50: #f8fafc;
             --slate-100: #f1f3f5;
             --slate-200: #e2e8f0;
@@ -107,8 +106,8 @@
         .btn-green:hover { background-color: var(--primary-dark); }
         .btn-gray { background-color: var(--slate-200); color: var(--slate-700); }
         .btn-gray:hover { background-color: #cbd5e1; }
-        .btn-purple { background-color: #f3e8ff; color: #7e22ce; border: 1px solid #d8b4fe; }
-        .btn-purple:hover { background-color: #e9d5ff; }
+        .btn-purple { background-color: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0; }
+        .btn-purple:hover { background-color: #dcfce7; }
 
         .main-container {
             max-width: 1200px;
@@ -174,8 +173,8 @@
         }
 
         .badge-purple {
-            background-color: #f3e8ff;
-            color: #6b21a8;
+            background-color: #dcfce7;
+            color: #166534;
         }
 
         .badge-amber {
@@ -383,9 +382,9 @@
                 <p><strong>1. 細胞學說的建立者及內容</strong></p>
                 <p style="margin-left: 1rem;">
                     (1) 建立者：主要是兩位德國科學家 
-                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["施萊登","施莱登"]'> 
+                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["施萊登","施莱登","施旺"]'> 
                     和 
-                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["施旺"]'>。
+                    <input type="text" class="blank-input" style="width: 100px;" data-ans='["施旺","施萊登","施莱登"]'>。
                 </p>
                 <p style="margin-left: 1rem;">(2) 細胞學說要點：</p>
                 <p style="margin-left: 2rem;">
@@ -526,10 +525,10 @@
                     <p style="font-weight: 600; margin-bottom: 0.5rem;">2. 化合物種類及元素組成與含量比例</p>
                     <div style="background-color: var(--slate-50); padding: 0.75rem; border-radius: 0.5rem;">
                         <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.35rem; font-size: 0.875rem;">
-                            <li>• 水（ 元素：<input type="text" class="blank-input" style="width: 90px;" data-ans='["H、O","H, O","H2O"]'>，占細胞鮮重最多的化合物 ）</li>
+                            <li>• 水（ 元素：<input type="text" class="blank-input" style="width: 90px;" data-ans='["H、O","H, O","H2O","O、H","O, H"]'>，占細胞鮮重最多的化合物 ）</li>
                             <li>• 無機鹽（ 約占1% ~ 1.5% ）</li>
                             <li>• 糖類（ 元素：<input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'> ）</li>
-                            <li>• 脂質（ 元素：<input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'>，部分物質含 <input type="text" class="blank-input" style="width: 100px;" data-ans='["N、P","N, P"]'> ）</li>
+                            <li>• 脂質（ 元素：<input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'>，部分物質含 <input type="text" class="blank-input" style="width: 100px;" data-ans='["N、P","N, P","P、N","P, N"]'> ）</li>
                             <li>• 蛋白質（ 元素：<input type="text" class="blank-input" style="width: 130px;" data-ans='["C、H、O、N","C, H, O, N"]'>，一般含 S，占細胞乾重最多 ）</li>
                             <li>• 核酸（ 元素：<input type="text" class="blank-input" style="width: 130px;" data-ans='["C、H、O、N、P","C, H, O, N, P"]'> ）</li>
                         </ul>
@@ -590,7 +589,7 @@
                                 ① 細胞內 <input type="text" class="blank-input" style="width: 100px;" data-ans='["良好溶劑","良好溶剂"]'><br>
                                 ② 參與 <input type="text" class="blank-input" style="width: 100px;" data-ans='["生化反應","生化反应"]'><br>
                                 ③ 為細胞提供 <input type="text" class="blank-input" style="width: 100px;" data-ans='["液體環境","液体环境"]'><br>
-                                ④ 運送 <input type="text" class="blank-input" style="width: 90px;" data-ans='["營養物質","营养物质"]'> 和 <input type="text" class="blank-input" style="width: 90px;" data-ans='["代謝廢物","代谢废物"]'>
+                                ④ 運送 <input type="text" class="blank-input" style="width: 90px;" data-ans='["營養物質","营养物质","代謝廢物","代谢废物"]'> 和 <input type="text" class="blank-input" style="width: 90px;" data-ans='["代謝廢物","代谢废物","營養物質","营养物质"]'>
                             </td>
                             <td>是細胞結構的 <input type="text" class="blank-input" style="width: 120px;" data-ans='["組成成分","组成成分"]'></td>
                         </tr>
@@ -739,7 +738,7 @@
                         </tr>
                         <tr>
                             <td>糖原</td>
-                            <td>動物 <input type="text" class="blank-input" style="width: 100px;" data-ans='["肝臟、肌肉","肝臟和肌肉"]'></td>
+                            <td>動物 <input type="text" class="blank-input" style="width: 100px;" data-ans='["肝臟、肌肉","肝臟和肌肉","肝臟與肌肉","肌肉、肝臟"]'></td>
                             <td>動物細胞主要儲能物質</td>
                             <td style="text-align: center;"><input type="text" class="blank-input" style="width: 60px;" data-ans='["是","✅"]'></td>
                         </tr>
@@ -796,7 +795,7 @@
                         <tr>
                             <td>維生素D</td>
                             <td><input type="text" class="blank-input" style="width: 100px;" data-ans='["C、H、O","C, H, O"]'></td>
-                            <td>促進 <input type="text" class="blank-input" style="width: 60px;" data-ans='["鈣","Ca"]'> 和 <input type="text" class="blank-input" style="width: 60px;" data-ans='["磷","P"]'> 的吸收</td>
+                            <td>促進 <input type="text" class="blank-input" style="width: 60px;" data-ans='["鈣","钙","Ca","磷","P"]'> 和 <input type="text" class="blank-input" style="width: 60px;" data-ans='["磷","P","鈣","钙","Ca"]'> 的吸收</td>
                         </tr>
                     </tbody>
                 </table>
@@ -849,7 +848,33 @@
 
         <section class="card">
             <div class="card-header">
-                <span class="badge badge-purple">第十一章</span>
+                <span class="badge">第十一章</span>
+                <h2 class="card-title">綠色通道</h2>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 1.25rem;">
+                <div class="dictation-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; border: 1px solid var(--slate-200);">
+                    <p style="font-weight: 700; margin-bottom: 0.5rem; color: var(--slate-800);">1. 結核桿菌和酵母菌的名稱中都帶有“菌”，它們是否是一類生物？請說明理由。</p>
+                    <textarea id="dict1" class="dictation-input" style="width: 100%; min-height: 70px; padding: 0.5rem; border: 1px solid var(--slate-200); border-radius: 0.5rem; font-family: inherit; font-size: 0.875rem; outline: none; resize: vertical;" data-std="不是。結核桿菌屬於原核生物，酵母菌屬於真核生物。" placeholder="請在此整句默寫回答..."></textarea>
+                    <div class="dictation-result hidden"></div>
+                </div>
+
+                <div class="dictation-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; border: 1px solid var(--slate-200);">
+                    <p style="font-weight: 700; margin-bottom: 0.5rem; color: var(--slate-800);">2. 結核桿菌和酵母菌在結構上主要的區別是什麼？</p>
+                    <textarea id="dict2" class="dictation-input" style="width: 100%; min-height: 70px; padding: 0.5rem; border: 1px solid var(--slate-200); border-radius: 0.5rem; font-family: inherit; font-size: 0.875rem; outline: none; resize: vertical;" data-std="結核桿菌無以核膜為界限的細胞核。" placeholder="請在此整句默寫回答..."></textarea>
+                    <div class="dictation-result hidden"></div>
+                </div>
+
+                <div class="dictation-card" style="background-color: var(--slate-50); padding: 1rem; border-radius: 0.75rem; border: 1px solid var(--slate-200);">
+                    <p style="font-weight: 700; margin-bottom: 0.5rem; color: var(--slate-800);">3. 為什麼嬰幼兒常曬太陽能預防佝僂病？</p>
+                    <textarea id="dict3" class="dictation-input" style="width: 100%; min-height: 80px; padding: 0.5rem; border: 1px solid var(--slate-200); border-radius: 0.5rem; font-family: inherit; font-size: 0.875rem; outline: none; resize: vertical;" data-std="日光中的紫外線能使皮膚表皮細胞中的膽固醇轉變為維生素D。維生素D能有效促進人和動物腸道對鈣和磷的吸收，從而預防佝僂病。" placeholder="請在此整句默寫回答..."></textarea>
+                    <div class="dictation-result hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-header">
+                <span class="badge badge-purple">第十二章</span>
                 <h2 class="card-title">選擇題（單項選擇題，共6題）</h2>
             </div>
 
@@ -869,8 +894,8 @@
                         <text x="70" y="48" font-size="9" fill="#ef4444" font-weight="bold">-S-S-</text>
                         <line x1="120" y1="75" x2="190" y2="50" stroke="#ef4444" stroke-width="2"/>
                         <text x="150" y="58" font-size="9" fill="#ef4444" font-weight="bold">-S-S-</text>
-                        <line x1="40" y1="105" x2="190" y2="105" stroke="#8b5cf6" stroke-width="2"/>
-                        <text x="100" y="100" font-size="9" fill="#8b5cf6" font-weight="bold">-NH-CO-</text>
+                        <line x1="40" y1="105" x2="190" y2="105" stroke="#16a34a" stroke-width="2"/>
+                        <text x="100" y="100" font-size="9" fill="#16a34a" font-weight="bold">-NH-CO-</text>
                     </svg>
                 </div>
 
@@ -995,7 +1020,7 @@
 
         <section class="card">
             <div class="card-header">
-                <span class="badge badge-amber">第十二章</span>
+                <span class="badge badge-amber">第十三章</span>
                 <h2 class="card-title">綜合填空題</h2>
             </div>
 
@@ -1090,6 +1115,21 @@
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
 
+        function normalizeChar(c) {
+            if (!c) return '';
+            let s = c.toLowerCase();
+            const map = {
+                '结':'結', '核':'核', '杆':'桿', '菌':'菌', '属':'屬', '于':'於',
+                '原':'原', '真':'真', '物':'物', '无':'無', '界':'界', '限':'限',
+                '细':'細', '胞':'胞', '膜':'膜', '紫':'紫', '外':'外', '线':'線',
+                '胆':'膽', '固':'固', '醇':'醇', '变':'變', '维':'維', '生':'生',
+                '素':'素', '促':'促', '进':'進', '动':'動', '肠':'腸', '道':'道',
+                '钙':'鈣', '磷':'磷', '吸':'吸', '收':'收', '预':'預', '防':'防',
+                '佝':'佝', '偻':'僂', '病':'病', '是':'是', '不':'不'
+            };
+            return map[s] || s;
+        }
+
         function normalizeText(str) {
             if (!str) return '';
             let s = str.trim().toLowerCase();
@@ -1121,6 +1161,85 @@
                  .replace(/氨基/g, '氨基')
                  .replace(/—/g, '-').replace(/–/g, '-').replace(/\s+/g, '');
             return s;
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        function buildDiffHTML(userInput, stdText) {
+            const u = Array.from(userInput.trim());
+            const s = Array.from(stdText.trim());
+            const m = u.length;
+            const n = s.length;
+
+            const dp = Array.from({length: m + 1}, () => new Int32Array(n + 1));
+            for (let i = 1; i <= m; i++) {
+                for (let j = 1; j <= n; j++) {
+                    if (normalizeChar(u[i-1]) === normalizeChar(s[j-1])) {
+                        dp[i][j] = dp[i-1][j-1] + 1;
+                    } else {
+                        dp[i][j] = Math.max(dp[i-1][j], dp[i][j-1]);
+                    }
+                }
+            }
+
+            let i = m, j = n;
+            const uDiff = [];
+            const sDiff = [];
+
+            while (i > 0 || j > 0) {
+                if (i > 0 && j > 0 && normalizeChar(u[i-1]) === normalizeChar(s[j-1])) {
+                    uDiff.push({char: u[i-1], type: 'match'});
+                    sDiff.push({char: s[j-1], type: 'match'});
+                    i--; j--;
+                } else if (j > 0 && (i === 0 || dp[i][j-1] >= dp[i-1][j])) {
+                    sDiff.push({char: s[j-1], type: 'miss'});
+                    j--;
+                } else {
+                    uDiff.push({char: u[i-1], type: 'extra'});
+                    i--;
+                }
+            }
+
+            uDiff.reverse();
+            sDiff.reverse();
+
+            let html = '<div style="margin-top:0.5rem; padding:0.65rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:0.5rem; font-size:0.85rem; line-height:1.6;">';
+            html += '<p style="font-weight:700; color:#1e293b; margin-bottom:0.25rem;">【標準答案對比】（紅色為漏寫/錯寫）</p>';
+            html += '<div style="word-break:break-all;">';
+            for (const item of sDiff) {
+                if (item.type === 'match') {
+                    html += `<span style="color:#16a34a; font-weight:600;">${escapeHtml(item.char)}</span>`;
+                } else {
+                    html += `<span style="color:#be123c; background-color:#ffe4e6; font-weight:bold; padding:0 2px; border-radius:2px; margin:0 1px;">${escapeHtml(item.char)}</span>`;
+                }
+            }
+            html += '</div>';
+
+            if (u.length > 0 && uDiff.some(x => x.type === 'extra')) {
+                html += '<p style="font-weight:700; color:#1e293b; margin-top:0.5rem; margin-bottom:0.25rem;">【多餘/不匹配字詞】</p><div style="word-break:break-all;">';
+                for (const item of uDiff) {
+                    if (item.type === 'extra') {
+                        html += `<span style="color:#be123c; text-decoration:line-through; margin-right:1px;">${escapeHtml(item.char)}</span>`;
+                    }
+                }
+                html += '</div>';
+            }
+            html += '</div>';
+            return html;
+        }
+
+        function checkDictation() {
+            document.querySelectorAll('.dictation-card').forEach(card => {
+                const input = card.querySelector('.dictation-input');
+                const resultDiv = card.querySelector('.dictation-result');
+                const stdText = input.getAttribute('data-std') || '';
+                const userVal = input.value;
+
+                resultDiv.innerHTML = buildDiffHTML(userVal, stdText);
+                resultDiv.classList.remove('hidden');
+            });
         }
 
         function toggleOverlayAnswers() {
@@ -1155,7 +1274,18 @@
                     });
                 });
 
-                showToast("已在填空框內覆蓋顯示標準答案！", "success");
+                document.querySelectorAll('.dictation-card').forEach(card => {
+                    const input = card.querySelector('.dictation-input');
+                    const stdText = input.getAttribute('data-std') || '';
+                    if (!userSavedInputs.has('dict_' + input.id)) {
+                        userSavedInputs.set('dict_' + input.id, input.value);
+                    }
+                    input.value = stdText;
+                    input.readOnly = true;
+                });
+                checkDictation();
+
+                showToast("已顯示標準答案！", "success");
             } else {
                 btn.className = "btn btn-blue";
                 btnText.textContent = "顯示答案";
@@ -1174,6 +1304,14 @@
                     btn.style.color = "var(--slate-700)";
                     btn.style.fontWeight = "normal";
                     btn.style.textDecoration = "none";
+                });
+
+                document.querySelectorAll('.dictation-card').forEach(card => {
+                    const input = card.querySelector('.dictation-input');
+                    const resultDiv = card.querySelector('.dictation-result');
+                    input.value = userSavedInputs.get('dict_' + input.id) || '';
+                    input.readOnly = false;
+                    resultDiv.classList.add('hidden');
                 });
 
                 showToast("已恢復自主答題模式", "info");
@@ -1261,6 +1399,8 @@
                 }
             });
 
+            checkDictation();
+
             const percentage = Math.round((correctItems / totalItems) * 100);
             
             const dashboard = document.getElementById('scoreDashboard');
@@ -1270,14 +1410,14 @@
 
             dashboard.classList.remove('hidden');
             scoreRing.textContent = `${percentage}%`;
-            scoreDetailsText.textContent = `答對 ${correctItems} / 共 ${totalItems} 題（填空與選擇題）`;
+            scoreDetailsText.textContent = `答對 ${correctItems} / 共 ${totalItems} 題（填空與選擇題，綠色通道默寫不計入）`;
 
             if (percentage >= 90) {
                 scoreAdvice.textContent = "🎉 優秀！概念非常扎實，請繼續保持！";
             } else if (percentage >= 70) {
-                scoreAdvice.textContent = "👍 良好！請複習標紅題目的詳細解析。";
+                scoreAdvice.textContent = "👍 良好！請複習標紅題目的詳細解析與綠色通道默寫對比。";
             } else {
-                scoreAdvice.textContent = "💪 仍需努力！建議重讀筆記並點擊「顯示答案」對照。";
+                scoreAdvice.textContent = "💪 仍需努力！建議重讀筆記並查看綠色通道默寫比對結果。";
             }
 
             dashboard.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1305,6 +1445,14 @@
                     btn.style.textDecoration = "none";
                 });
                 card.querySelector('.explanation').classList.add('hidden');
+            });
+
+            document.querySelectorAll('.dictation-card').forEach(card => {
+                const input = card.querySelector('.dictation-input');
+                const resultDiv = card.querySelector('.dictation-result');
+                input.value = '';
+                input.readOnly = false;
+                resultDiv.classList.add('hidden');
             });
 
             document.getElementById('scoreDashboard').classList.add('hidden');
