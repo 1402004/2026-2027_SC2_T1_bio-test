@@ -80,24 +80,19 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
             <!-- Brand Logo & Title -->
             <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-blue-500/20">
-                    C
-                </div>
                 <div>
                     <div class="flex items-center space-x-2">
-                        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">Chon</span>
                         <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">1402004/SC2</span>
                     </div>
-                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">澳門高二學習資源總覽與即時導航 portal</p>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Chon</p>
                 </div>
             </div>
 
             <!-- Top Actions: View Switch, Rate Limit, Dark Mode -->
             <div class="flex items-center space-x-2 sm:space-x-3">
                 <!-- API Rate Limit Badge -->
-                <button onclick="openTokenModal()" id="rateLimitBtn" title="點擊設定 GitHub Token" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-700">
-                    <i class="fa-solid fa-gauge-high text-blue-500"></i>
-                    <span id="rateLimitText">API 額度: --</span>
+                <button onclick="openTokenModal()" id="rateLimitBtn">
+                    <span id="rateLimitText"></span>
                 </button>
 
                 <!-- View Mode Switcher (Grid vs Tree) -->
@@ -116,8 +111,8 @@
                 </button>
 
                 <!-- Refresh Button -->
-                <button onclick="fetchRepositoryFiles(true)" class="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors border border-blue-200 dark:border-blue-800" title="重新整理資料庫">
-                    <i id="refreshIcon" class="fa-solid fa-arrows-rotate"></i>
+                <button onclick="fetchRepositoryFiles(true)" >
+                    <i id="refreshIcon"></i>
                 </button>
             </div>
         </div>
@@ -230,15 +225,13 @@
     <footer class="border-t border-slate-200 dark:border-slate-800 mt-12 py-6 bg-slate-100/50 dark:bg-slate-900/50 text-xs text-slate-500 dark:text-slate-400">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
             <div>
-                <span class="font-bold text-slate-700 dark:text-slate-300">Chon</span> &copy; 2026 澳門高中學習資源導航 Portal
+                <span class="font-bold text-slate-700 dark:text-slate-300">Chon</span> &copy; 2026
             </div>
             <div class="flex items-center space-x-4">
-                <a href="https://github.com/1402004/SC2" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors flex items-center space-x-1">
+                <a href="https://github.com/1402004" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors flex items-center space-x-1">
                     <i class="fa-brands fa-github text-sm"></i>
-                    <span>1402004/SC2</span>
+                    <span>1402004</span>
                 </a>
-                <span>&bull;</span>
-                <button onclick="openTokenModal()" class="hover:text-blue-500 transition-colors">GitHub PAT 設定</button>
             </div>
         </div>
     </footer>
@@ -443,7 +436,7 @@
                 const limit = res.headers.get('x-ratelimit-limit');
                 const remaining = res.headers.get('x-ratelimit-remaining');
                 if (limit && remaining) {
-                    document.getElementById('rateLimitText').innerText = `API 額度: ${remaining}/${limit}`;
+                    document.getElementById('rateLimitText').innerText = ``;
                 }
 
                 if (!res.ok) {
