@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="zh-MO" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chon - 澳門高二學習資源總覽與即時導航</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            900: '#1e3a8a',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'Noto Sans TC', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Modern scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.4);
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.7);
+        }
+        /* Glassmorphism effects */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .dark .glass-panel {
+            background: rgba(15, 23, 42, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+        .dark .glass-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-200 font-sans selection:bg-blue-500 selection:text-white flex flex-col">
+
+    <!-- Header / Navigation Navbar -->
+    <header class="sticky top-0 z-30 glass-panel border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between gap-4">
+            <!-- Brand Logo & Title -->
+            <div class="flex items-center space-x-3 cursor-pointer" onclick="resetFilters()">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-400 flex items-center justify-center text-white font-bold text-xl shadow-md shadow-blue-500/20">
+                    C
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-indigo-500 dark:from-blue-400 dark:to-indigo-300 bg-clip-text text-transparent">Chon</span>
+                        <span class="px-2 py-0.5 text-xs font-semibold rounded-full bg-blue-100 dark:bg-blue-950 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">1402004/SC2</span>
+                    </div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">澳門高二學習資源總覽與即時導航 portal</p>
+                </div>
+            </div>
+
+            <!-- Top Actions: View Switch, Rate Limit, Dark Mode -->
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <!-- API Rate Limit Badge -->
+                <button onclick="openTokenModal()" id="rateLimitBtn" title="點擊設定 GitHub Token" class="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-700">
+                    <i class="fa-solid fa-gauge-high text-blue-500"></i>
+                    <span id="rateLimitText">API 額度: --</span>
+                </button>
+
+                <!-- View Mode Switcher (Grid vs Tree) -->
+                <div class="flex bg-slate-200/80 dark:bg-slate-800 p-1 rounded-lg border border-slate-300/50 dark:border-slate-700">
+                    <button id="viewGridBtn" onclick="switchView('grid')" title="網格視圖" class="px-2.5 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm">
+                        <i class="fa-solid fa-border-all"></i>
+                    </button>
+                    <button id="viewTreeBtn" onclick="switchView('tree')" title="目錄樹視圖" class="px-2.5 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200">
+                        <i class="fa-solid fa-folder-tree"></i>
+                    </button>
+                </div>
+
+                <!-- Dark / Light Theme Toggle -->
+                <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition-colors border border-slate-200 dark:border-slate-700" title="切換深色/淺色模式">
+                    <i id="themeIcon" class="fa-solid fa-moon"></i>
+                </button>
+
+                <!-- Refresh Button -->
+                <button onclick="fetchRepositoryFiles(true)" class="p-2 rounded-lg bg-blue-50 dark:bg-blue-950/50 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors border border-blue-200 dark:border-blue-800" title="重新整理資料庫">
+                    <i id="refreshIcon" class="fa-solid fa-arrows-rotate"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+
+        <!-- Search Bar & Hero Controls -->
+        <div class="glass-panel p-4 sm:p-6 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-lg shadow-slate-200/50 dark:shadow-none transition-all">
+            <!-- Search Input -->
+            <div class="relative mb-5">
+                <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-lg"></i>
+                </div>
+                <input type="text" id="searchInput" oninput="handleSearchInput()" placeholder="搜尋檔案名稱、路徑、科目、階段或關鍵字..." class="w-full pl-11 pr-24 py-3 bg-white dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-xl text-sm placeholder-slate-400 text-slate-900 dark:text-slate-100 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all shadow-inner">
+                <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute inset-y-0 right-3 px-2 flex items-center text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                    <i class="fa-solid fa-circle-xmark text-base"></i>
+                </button>
+            </div>
+
+            <!-- Subject Quick Filters -->
+            <div class="mb-4">
+                <div class="text-xs font-semibold text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-2 flex items-center gap-1">
+                    <i class="fa-solid fa-book"></i> 科目分類
+                </div>
+                <div class="flex flex-wrap gap-1.5" id="subjectFilterContainer">
+                    <!-- Dynamic subjects filled by JS -->
+                </div>
+            </div>
+
+            <!-- Stage & Type Secondary Filters -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-3 border-t border-slate-200/60 dark:border-slate-800">
+                <!-- Stage Filter -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0">
+                    <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 whitespace-nowrap"><i class="fa-solid fa-layer-group"></i> 學習階段:</span>
+                    <div id="stageFilterContainer" class="flex space-x-1">
+                        <!-- Dynamic stages filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Type Filter -->
+                <div class="flex items-center space-x-2 overflow-x-auto pb-1 md:pb-0 md:justify-end">
+                    <span class="text-xs font-semibold text-slate-400 dark:text-slate-500 whitespace-nowrap"><i class="fa-solid fa-filter"></i> 資源類型:</span>
+                    <div id="typeFilterContainer" class="flex space-x-1">
+                        <!-- Dynamic types filled by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs & Active Count Status -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+            <div class="flex space-x-2 border-b sm:border-b-0 border-slate-200 dark:border-slate-800 w-full sm:w-auto">
+                <button onclick="setTab('all')" id="tabAll" class="px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 transition-colors flex items-center space-x-2">
+                    <i class="fa-solid fa-database"></i>
+                    <span>所有檔案</span>
+                    <span id="allCountBadge" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-blue-100 dark:bg-blue-900/60 text-blue-700 dark:text-blue-300">0</span>
+                </button>
+                <button onclick="setTab('bookmarks')" id="tabBookmarks" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors flex items-center space-x-2">
+                    <i class="fa-solid fa-star text-amber-500"></i>
+                    <span>我的收藏</span>
+                    <span id="bookmarksCountBadge" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">0</span>
+                </button>
+                <button onclick="setTab('history')" id="tabHistory" class="px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors flex items-center space-x-2">
+                    <i class="fa-solid fa-clock-rotate-left"></i>
+                    <span>最近瀏覽</span>
+                    <span id="historyCountBadge" class="ml-1 px-2 py-0.5 text-xs rounded-full bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">0</span>
+                </button>
+            </div>
+
+            <div id="resultsInfo" class="text-xs text-slate-500 dark:text-slate-400 font-medium">
+                載入中...
+            </div>
+        </div>
+
+        <!-- Content Area: Loading / Empty / Grid View / Tree View -->
+        <div id="contentArea" class="min-h-[350px]">
+            <!-- Loading Indicator -->
+            <div id="loadingState" class="flex flex-col items-center justify-center py-20 space-y-4">
+                <div class="relative w-12 h-12">
+                    <div class="w-12 h-12 rounded-full border-4 border-blue-200 dark:border-blue-900 animate-pulse"></div>
+                    <div class="w-12 h-12 rounded-full border-t-4 border-blue-600 dark:border-blue-400 animate-spin absolute top-0 left-0"></div>
+                </div>
+                <p class="text-sm font-medium text-slate-500 dark:text-slate-400">正在同步 GitHub 資源庫 (`main` 分支)...</p>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="hidden flex-col items-center justify-center py-20 text-center space-y-3">
+                <div class="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800/80 flex items-center justify-center text-slate-400 dark:text-slate-500 text-2xl">
+                    <i class="fa-solid fa-folder-open"></i>
+                </div>
+                <h3 class="text-base font-semibold text-slate-700 dark:text-slate-300">未找到相關學習資源</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm">請嘗試縮短搜尋關鍵字，或切換其他科目、階段及類型篩選條件。</p>
+                <button onclick="resetFilters()" class="mt-2 px-3 py-1.5 text-xs font-medium bg-blue-50 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/60 transition-colors">
+                    重置所有篩選
+                </button>
+            </div>
+
+            <!-- Grid View Container -->
+            <div id="gridView" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+
+            <!-- Tree Directory View Container -->
+            <div id="treeView" class="hidden glass-panel rounded-xl p-4 border border-slate-200 dark:border-slate-800 space-y-1 font-mono text-sm"></div>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 dark:border-slate-800 mt-12 py-6 bg-slate-100/50 dark:bg-slate-900/50 text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div>
+                <span class="font-bold text-slate-700 dark:text-slate-300">Chon</span> &copy; 2026 澳門高中學習資源導航 Portal
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="https://github.com/1402004/SC2" target="_blank" rel="noopener noreferrer" class="hover:text-blue-500 transition-colors flex items-center space-x-1">
+                    <i class="fa-brands fa-github text-sm"></i>
+                    <span>1402004/SC2</span>
+                </a>
+                <span>&bull;</span>
+                <button onclick="openTokenModal()" class="hover:text-blue-500 transition-colors">GitHub PAT 設定</button>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal: GitHub Personal Access Token (PAT) -->
+    <div id="tokenModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm hidden">
+        <div class="glass-panel w-full max-w-md rounded-2xl p-6 border border-slate-200 dark:border-slate-800 shadow-2xl relative">
+            <button onclick="closeTokenModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="flex items-center space-x-3 mb-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-100 dark:bg-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                    <i class="fa-solid fa-key text-lg"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-slate-900 dark:text-slate-100">GitHub API Token 設定</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400">提高 GitHub API 請求次數限制</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+                未登入時 GitHub 每小時限制 60 次 API 請求。如遇到頻率限制，可在下方貼上您的 Personal Access Token (classic 或 fine-grained token)。Token 僅儲存於本地瀏覽器。
+            </p>
+            <input type="password" id="tokenInput" placeholder="ghp_xxxxxxxxxxxx" class="w-full px-3 py-2 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-lg text-sm text-slate-900 dark:text-slate-100 mb-4 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="flex justify-end space-x-2">
+                <button onclick="clearToken()" class="px-3 py-2 text-xs font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/50 rounded-lg transition-colors">
+                    清除 Token
+                </button>
+                <button onclick="saveToken()" class="px-4 py-2 text-xs font-medium bg-blue-600 text-white hover:bg-blue-700 rounded-lg shadow-sm transition-colors">
+                    儲存並重新整理
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Iframe File Preview -->
+    <div id="previewModal" class="fixed inset-0 z-50 flex items-center justify-center p-2 sm:p-6 bg-slate-900/80 backdrop-blur-md hidden">
+        <div class="bg-white dark:bg-slate-900 w-full h-full max-w-6xl rounded-2xl border border-slate-200 dark:border-slate-800 shadow-2xl flex flex-col overflow-hidden">
+            <!-- Modal Header -->
+            <div class="px-4 py-3 bg-slate-100 dark:bg-slate-800/80 border-b border-slate-200 dark:border-slate-700 flex items-center justify-between">
+                <div class="flex items-center space-x-3 overflow-hidden">
+                    <span id="previewFileIcon" class="text-blue-500"><i class="fa-solid fa-file"></i></span>
+                    <div class="truncate">
+                        <h4 id="previewFileName" class="text-sm font-semibold text-slate-800 dark:text-slate-100 truncate">檔案預覽</h4>
+                        <p id="previewFilePath" class="text-xs text-slate-500 dark:text-slate-400 truncate"></p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2 flex-shrink-0">
+                    <a id="previewExternalLink" href="#" target="_blank" class="px-3 py-1.5 text-xs font-medium bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-1">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        <span class="hidden sm:inline">在新分頁開啟</span>
+                    </a>
+                    <button onclick="closePreviewModal()" class="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-lg text-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+            </div>
+            <!-- Modal Body (Iframe) -->
+            <div class="flex-grow bg-slate-200 dark:bg-slate-950 relative">
+                <iframe id="previewIframe" class="w-full h-full border-0" src="about:blank"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application JavaScript Logic -->
+    <script>
+        // --- Core Configuration & Constants ---
+        const REPO_OWNER = "1402004";
+        const REPO_NAME = "SC2";
+        const DEFAULT_BRANCH = "main";
+
+        // Subject mappings (Updated requirement: 中文 (no brackets), 資訊與編程)
+        const SUBJECTS = [
+            { id: 'all', name: '全部科目', icon: 'fa-layer-group', matches: [] },
+            { id: 'chi', name: '中文', icon: 'fa-book-bookmark', matches: ['中文', '國文', 'chi', 'chn'] },
+            { id: 'math', name: '數學', icon: 'fa-calculator', matches: ['數學', 'math'] },
+            { id: 'eng', name: '英文', icon: 'fa-language', matches: ['英文', 'eng'] },
+            { id: 'phy', name: '物理', icon: 'fa-atom', matches: ['物理', 'phy'] },
+            { id: 'chem', name: '化學', icon: 'fa-flask', matches: ['化學', 'chem'] },
+            { id: 'bio', name: '生物', icon: 'fa-dna', matches: ['生物', 'bio'] },
+            { id: 'cs', name: '資訊與編程', icon: 'fa-code', matches: ['資訊', '編程', '電腦', 'cs', 'ict', 'info'] }
+        ];
+
+        // Stages: 第一段 (T1), 第二段 (T2), 第三段 (T3)
+        const STAGES = [
+            { id: 'all', name: '全部階段', matches: [] },
+            { id: 't1', name: '第一段 (T1)', matches: ['段一', 't1', '第一段', '1st', '段1'] },
+            { id: 't2', name: '第二段 (T2)', matches: ['段二', 't2', '第二段', '2nd', '段2'] },
+            { id: 't3', name: '第三段 (T3)', matches: ['段三', 't3', '第三段', '3rd', '段3'] }
+        ];
+
+        // Types: 學習資料 (learn), 測驗 (test), 考試 (exam)
+        const TYPES = [
+            { id: 'all', name: '全部類型', matches: [] },
+            { id: 'learn', name: '學習資料', matches: ['資料', '筆記', 'note', 'ppt', 'pdf', 'doc', 'learn', '講義', '課程'] },
+            { id: 'test', name: '測驗', matches: ['測驗', '小測', 'quiz', 'test'] },
+            { id: 'exam', name: '考試', matches: ['考試', '段考', '期末', '期中', 'exam', 'midterm', 'final'] }
+        ];
+
+        // Application State
+        let allFiles = [];
+        let filteredFiles = [];
+        let viewMode = 'grid'; // 'grid' or 'tree'
+        let currentTab = 'all'; // 'all', 'bookmarks', 'history'
+        let selectedSubject = 'all';
+        let selectedStage = 'all';
+        let selectedType = 'all';
+        let searchQuery = '';
+
+        // Local Storage State
+        let bookmarks = JSON.parse(localStorage.getItem('chon_bookmarks') || '[]');
+        let historyList = JSON.parse(localStorage.getItem('chon_history') || '[]');
+        let ghToken = localStorage.getItem('chon_gh_token') || '';
+
+        // --- Init Function ---
+        window.addEventListener('DOMContentLoaded', () => {
+            initTheme();
+            renderFilterControls();
+            fetchRepositoryFiles();
+            updateTabBadges();
+        });
+
+        // --- Theme Switcher ---
+        function initTheme() {
+            const savedTheme = localStorage.getItem('chon_theme') || 'dark';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.getElementById('themeIcon').className = 'fa-solid fa-sun text-amber-400';
+            } else {
+                document.documentElement.classList.remove('dark');
+                document.getElementById('themeIcon').className = 'fa-solid fa-moon text-slate-600';
+            }
+        }
+
+        function toggleTheme() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('chon_theme', isDark ? 'dark' : 'light');
+            document.getElementById('themeIcon').className = isDark ? 'fa-solid fa-sun text-amber-400' : 'fa-solid fa-moon text-slate-600';
+        }
+
+        // --- Render UI Filter Controls ---
+        function renderFilterControls() {
+            // Render Subjects
+            const subjContainer = document.getElementById('subjectFilterContainer');
+            subjContainer.innerHTML = SUBJECTS.map(s => `
+                <button onclick="setSubject('${s.id}')" id="btnSubj-${s.id}" class="px-3 py-1.5 rounded-xl text-xs font-medium transition-all flex items-center space-x-1.5 border ${
+                    selectedSubject === s.id 
+                    ? 'bg-blue-600 text-white border-blue-600 shadow-sm shadow-blue-500/30' 
+                    : 'bg-white/80 dark:bg-slate-800/80 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
+                }">
+                    <i class="fa-solid ${s.icon} text-xs"></i>
+                    <span>${s.name}</span>
+                </button>
+            `).join('');
+
+            // Render Stages
+            const stageContainer = document.getElementById('stageFilterContainer');
+            stageContainer.innerHTML = STAGES.map(st => `
+                <button onclick="setStage('${st.id}')" id="btnStage-${st.id}" class="px-2.5 py-1 rounded-lg text-xs font-medium transition-all border ${
+                    selectedStage === st.id 
+                    ? 'bg-indigo-600 text-white border-indigo-600' 
+                    : 'bg-white/60 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
+                }">
+                    ${st.name}
+                </button>
+            `).join('');
+
+            // Render Types
+            const typeContainer = document.getElementById('typeFilterContainer');
+            typeContainer.innerHTML = TYPES.map(t => `
+                <button onclick="setType('${t.id}')" id="btnType-${t.id}" class="px-2.5 py-1 rounded-lg text-xs font-medium transition-all border ${
+                    selectedType === t.id 
+                    ? 'bg-emerald-600 text-white border-emerald-600' 
+                    : 'bg-white/60 dark:bg-slate-800/60 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700'
+                }">
+                    ${t.name}
+                </button>
+            `).join('');
+        }
+
+        // --- Fetch Files from GitHub main Branch ---
+        async function fetchRepositoryFiles(forceRefresh = false) {
+            const loadingState = document.getElementById('loadingState');
+            const refreshIcon = document.getElementById('refreshIcon');
+            
+            loadingState.classList.remove('hidden');
+            document.getElementById('gridView').classList.add('hidden');
+            document.getElementById('treeView').classList.add('hidden');
+            document.getElementById('emptyState').classList.add('hidden');
+            refreshIcon.classList.add('fa-spin');
+
+            try {
+                // Fetch recursive tree from main branch
+                const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${DEFAULT_BRANCH}?recursive=1`;
+                const headers = {};
+                if (ghToken) {
+                    headers['Authorization'] = `token ${ghToken}`;
+                }
+
+                const res = await fetch(url, { headers });
+
+                // Rate Limit Header Tracking
+                const limit = res.headers.get('x-ratelimit-limit');
+                const remaining = res.headers.get('x-ratelimit-remaining');
+                if (limit && remaining) {
+                    document.getElementById('rateLimitText').innerText = `API 額度: ${remaining}/${limit}`;
+                }
+
+                if (!res.ok) {
+                    if (res.status === 403) {
+                        throw new Error("已達到 GitHub API 額度限制，請點擊右上角設定 Token。");
+                    }
+                    // Fallback try master branch if main branch is absent
+                    const fallbackRes = await fetch(`https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/master?recursive=1`, { headers });
+                    if (!fallbackRes.ok) throw new Error("存取 GitHub 資源庫失敗");
+                    const fallbackData = await fallbackRes.json();
+                    processTreeData(fallbackData.tree);
+                } else {
+                    const data = await res.json();
+                    processTreeData(data.tree || []);
+                }
+            } catch (err) {
+                console.error("Fetch Error:", err);
+                document.getElementById('resultsInfo').innerText = `載入錯誤: ${err.message}`;
+            } finally {
+                loadingState.classList.add('hidden');
+                refreshIcon.classList.remove('fa-spin');
+                applyFilters();
+            }
+        }
+
+        function processTreeData(tree) {
+            // Filter only files (blobs), excluding hidden files and system configs
+            allFiles = tree
+                .filter(item => item.type === 'blob' && !item.path.startsWith('.') && item.path !== 'README.md' && item.path !== 'home.html')
+                .map(item => {
+                    const pathParts = item.path.split('/');
+                    const fileName = pathParts[pathParts.length - 1];
+                    const extension = fileName.includes('.') ? fileName.split('.').pop().toLowerCase() : '';
+                    
+                    // Categorize subject, stage, type
+                    const subject = detectSubject(item.path);
+                    const stage = detectStage(item.path);
+                    const type = detectType(item.path);
+
+                    return {
+                        path: item.path,
+                        fileName: fileName,
+                        extension: extension,
+                        size: item.size || 0,
+                        subject: subject,
+                        stage: stage,
+                        type: type,
+                        webUrl: `./${item.path}` // Direct relative path rendering
+                    };
+                });
+        }
+
+        // --- Categorization Helpers ---
+        function detectSubject(path) {
+            const lowerPath = path.toLowerCase();
+            for (const subj of SUBJECTS) {
+                if (subj.id === 'all') continue;
+                if (subj.matches.some(m => lowerPath.includes(m.toLowerCase()))) {
+                    return subj;
+                }
+            }
+            return { id: 'other', name: '綜合資源', icon: 'fa-folder-open' };
+        }
+
+        function detectStage(path) {
+            const lowerPath = path.toLowerCase();
+            for (const stage of STAGES) {
+                if (stage.id === 'all') continue;
+                if (stage.matches.some(m => lowerPath.includes(m.toLowerCase()))) {
+                    return stage;
+                }
+            }
+            return { id: 'general', name: '全學期' };
+        }
+
+        function detectType(path) {
+            const lowerPath = path.toLowerCase();
+            for (const t of TYPES) {
+                if (t.id === 'all') continue;
+                if (t.matches.some(m => lowerPath.includes(m.toLowerCase()))) {
+                    return t;
+                }
+            }
+            return { id: 'general', name: '檔案' };
+        }
+
+        // --- Filter & Search Handler ---
+        function applyFilters() {
+            let list = [];
+
+            // Tab filter
+            if (currentTab === 'all') {
+                list = [...allFiles];
+            } else if (currentTab === 'bookmarks') {
+                list = allFiles.filter(f => bookmarks.includes(f.path));
+            } else if (currentTab === 'history') {
+                list = historyList.map(hPath => allFiles.find(f => f.path === hPath)).filter(Boolean);
+            }
+
+            // Subject Filter
+            if (selectedSubject !== 'all') {
+                list = list.filter(f => f.subject.id === selectedSubject);
+            }
+
+            // Stage Filter
+            if (selectedStage !== 'all') {
+                list = list.filter(f => f.stage.id === selectedStage);
+            }
+
+            // Type Filter
+            if (selectedType !== 'all') {
+                list = list.filter(f => f.type.id === selectedType);
+            }
+
+            // Text Search Filter
+            if (searchQuery.trim() !== '') {
+                const q = searchQuery.toLowerCase();
+                list = list.filter(f => 
+                    f.path.toLowerCase().includes(q) || 
+                    f.fileName.toLowerCase().includes(q) ||
+                    f.subject.name.toLowerCase().includes(q)
+                );
+            }
+
+            filteredFiles = list;
+            updateTabBadges();
+
+            // Render view according to viewMode
+            renderView();
+        }
+
+        function renderView() {
+            const gridView = document.getElementById('gridView');
+            const treeView = document.getElementById('treeView');
+            const emptyState = document.getElementById('emptyState');
+            const resultsInfo = document.getElementById('resultsInfo');
+
+            resultsInfo.innerText = `已顯示 ${filteredFiles.length} 個資源檔案`;
+
+            if (filteredFiles.length === 0) {
+                gridView.classList.add('hidden');
+                treeView.classList.add('hidden');
+                emptyState.classList.remove('hidden');
+                emptyState.classList.add('flex');
+                return;
+            }
+
+            emptyState.classList.add('hidden');
+            emptyState.classList.remove('flex');
+
+            if (viewMode === 'grid') {
+                treeView.classList.add('hidden');
+                gridView.classList.remove('hidden');
+                renderGridView();
+            } else {
+                gridView.classList.add('hidden');
+                treeView.classList.remove('hidden');
+                renderTreeView();
+            }
+        }
+
+        // --- Render Card Grid View ---
+        function renderGridView() {
+            const container = document.getElementById('gridView');
+            container.innerHTML = filteredFiles.map(file => {
+                const isBookmarked = bookmarks.includes(file.path);
+                const fileIconClass = getFileIcon(file.extension);
+
+                return `
+                    <div class="glass-card rounded-xl p-4 border border-slate-200/80 dark:border-slate-800 hover:border-blue-500/50 dark:hover:border-blue-500/50 shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+                        <div>
+                            <!-- Header Info Tags -->
+                            <div class="flex items-center justify-between gap-2 mb-2">
+                                <div class="flex items-center space-x-1.5 flex-wrap gap-y-1">
+                                    <span class="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-blue-100 dark:bg-blue-950/80 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
+                                        <i class="fa-solid ${file.subject.icon} mr-1"></i>${file.subject.name}
+                                    </span>
+                                    <span class="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400">
+                                        ${file.stage.name}
+                                    </span>
+                                    <span class="px-2 py-0.5 text-[10px] font-semibold rounded-md bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400">
+                                        ${file.type.name}
+                                    </span>
+                                </div>
+                                <button onclick="toggleBookmark('${escapeQuotes(file.path)}')" class="text-slate-300 dark:text-slate-600 hover:text-amber-500 transition-colors p-1" title="加入收藏">
+                                    <i class="${isBookmarked ? 'fa-solid text-amber-500' : 'fa-regular'} fa-star text-sm"></i>
+                                </button>
+                            </div>
+
+                            <!-- File Title & Path -->
+                            <div class="flex items-start space-x-3 my-2">
+                                <div class="w-9 h-9 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 flex items-center justify-center flex-shrink-0 group-hover:bg-blue-50 group-hover:text-blue-600 dark:group-hover:bg-blue-950 dark:group-hover:text-blue-400 transition-colors">
+                                    <i class="${fileIconClass} text-lg"></i>
+                                </div>
+                                <div class="overflow-hidden">
+                                    <h4 class="text-sm font-bold text-slate-800 dark:text-slate-100 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors line-clamp-2" title="${escapeQuotes(file.fileName)}">
+                                        ${file.fileName}
+                                    </h4>
+                                    <p class="text-[11px] text-slate-400 dark:text-slate-500 truncate mt-0.5" title="${escapeQuotes(file.path)}">
+                                        ${file.path}
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="pt-3 mt-2 border-t border-slate-100 dark:border-slate-800/80 flex items-center justify-between gap-2">
+                            <span class="text-[11px] text-slate-400 dark:text-slate-500 font-mono">${formatFileSize(file.size)}</span>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="previewFile('${escapeQuotes(file.path)}', '${escapeQuotes(file.fileName)}')" class="px-2.5 py-1.5 text-xs font-medium rounded-lg text-slate-600 dark:text-slate-300 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors flex items-center space-x-1">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                    <span>預覽</span>
+                                </button>
+                                <a href="${file.webUrl}" target="_blank" onclick="recordHistory('${escapeQuotes(file.path)}')" class="px-3 py-1.5 text-xs font-medium rounded-lg bg-blue-600 hover:bg-blue-700 text-white shadow-sm transition-colors flex items-center space-x-1">
+                                    <i class="fa-solid fa-external-link text-xs"></i>
+                                    <span>開啟網頁</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // --- Render Tree Directory View ---
+        function renderTreeView() {
+            const container = document.getElementById('treeView');
+            
+            // Build tree structure
+            const root = {};
+            filteredFiles.forEach(file => {
+                const parts = file.path.split('/');
+                let current = root;
+                parts.forEach((part, index) => {
+                    if (index === parts.length - 1) {
+                        current[part] = file;
+                    } else {
+                        current[part] = current[part] || {};
+                        current = current[part];
+                    }
+                });
+            });
+
+            function buildHTML(node, depth = 0) {
+                let html = '';
+                const keys = Object.keys(node).sort((a, b) => {
+                    const isAFolder = typeof node[a].path === 'undefined';
+                    const isBFolder = typeof node[b].path === 'undefined';
+                    if (isAFolder && !isBFolder) return -1;
+                    if (!isAFolder && isBFolder) return 1;
+                    return a.localeCompare(b);
+                });
+
+                keys.forEach(key => {
+                    const item = node[key];
+                    const isFile = typeof item.path !== 'undefined';
+                    const indent = '&nbsp;'.repeat(depth * 4);
+
+                    if (isFile) {
+                        const iconClass = getFileIcon(item.extension);
+                        html += `
+                            <div class="flex items-center justify-between py-1 px-2 rounded hover:bg-slate-100 dark:hover:bg-slate-800/60 transition-colors group">
+                                <div class="flex items-center space-x-2 truncate">
+                                    <span class="text-slate-400 font-mono">${indent}</span>
+                                    <i class="${iconClass} text-blue-500 text-xs"></i>
+                                    <span class="text-slate-700 dark:text-slate-300 font-sans text-xs truncate">${key}</span>
+                                </div>
+                                <div class="flex items-center space-x-2 flex-shrink-0 opacity-80 group-hover:opacity-100">
+                                    <button onclick="previewFile('${escapeQuotes(item.path)}', '${escapeQuotes(item.fileName)}')" class="text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-200">
+                                        預覽
+                                    </button>
+                                    <a href="${item.webUrl}" target="_blank" onclick="recordHistory('${escapeQuotes(item.path)}')" class="text-xs text-blue-600 dark:text-blue-400 hover:underline">
+                                        開啟
+                                    </a>
+                                </div>
+                            </div>
+                        `;
+                    } else {
+                        html += `
+                            <div class="py-1 px-2 font-semibold text-slate-800 dark:text-slate-200 flex items-center space-x-2">
+                                <span class="text-slate-400 font-mono">${indent}</span>
+                                <i class="fa-solid fa-folder text-amber-500 text-xs"></i>
+                                <span class="font-sans text-xs">${key} /</span>
+                            </div>
+                            <div>${buildHTML(item, depth + 1)}</div>
+                        `;
+                    }
+                });
+                return html;
+            }
+
+            container.innerHTML = buildHTML(root);
+        }
+
+        // --- Event Handlers & State Setters ---
+        function setSubject(id) {
+            selectedSubject = id;
+            renderFilterControls();
+            applyFilters();
+        }
+
+        function setStage(id) {
+            selectedStage = id;
+            renderFilterControls();
+            applyFilters();
+        }
+
+        function setType(id) {
+            selectedType = id;
+            renderFilterControls();
+            applyFilters();
+        }
+
+        function setTab(tab) {
+            currentTab = tab;
+            ['All', 'Bookmarks', 'History'].forEach(t => {
+                const btn = document.getElementById(`tab${t}`);
+                if (t.toLowerCase() === tab) {
+                    btn.className = "px-4 py-2 text-sm font-medium border-b-2 border-blue-600 text-blue-600 dark:text-blue-400 transition-colors flex items-center space-x-2";
+                } else {
+                    btn.className = "px-4 py-2 text-sm font-medium border-b-2 border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition-colors flex items-center space-x-2";
+                }
+            });
+            applyFilters();
+        }
+
+        function switchView(mode) {
+            viewMode = mode;
+            const gridBtn = document.getElementById('viewGridBtn');
+            const treeBtn = document.getElementById('viewTreeBtn');
+
+            if (mode === 'grid') {
+                gridBtn.className = "px-2.5 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm";
+                treeBtn.className = "px-2.5 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
+            } else {
+                treeBtn.className = "px-2.5 py-1 rounded-md text-xs font-medium transition-all bg-white dark:bg-slate-700 text-blue-600 dark:text-blue-400 shadow-sm";
+                gridBtn.className = "px-2.5 py-1 rounded-md text-xs font-medium transition-all text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200";
+            }
+            renderView();
+        }
+
+        function handleSearchInput() {
+            searchQuery = document.getElementById('searchInput').value;
+            const clearBtn = document.getElementById('clearSearchBtn');
+            if (searchQuery.length > 0) {
+                clearBtn.classList.remove('hidden');
+            } else {
+                clearBtn.classList.add('hidden');
+            }
+            applyFilters();
+        }
+
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            searchQuery = '';
+            document.getElementById('clearSearchBtn').classList.add('hidden');
+            applyFilters();
+        }
+
+        function resetFilters() {
+            selectedSubject = 'all';
+            selectedStage = 'all';
+            selectedType = 'all';
+            clearSearch();
+            setTab('all');
+            renderFilterControls();
+        }
+
+        // --- Bookmarks & History ---
+        function toggleBookmark(path) {
+            const idx = bookmarks.indexOf(path);
+            if (idx > -1) {
+                bookmarks.splice(idx, 1);
+            } else {
+                bookmarks.push(path);
+            }
+            localStorage.setItem('chon_bookmarks', JSON.stringify(bookmarks));
+            applyFilters();
+        }
+
+        function recordHistory(path) {
+            historyList = historyList.filter(p => p !== path);
+            historyList.unshift(path);
+            if (historyList.length > 30) historyList.pop(); // max 30 records
+            localStorage.setItem('chon_history', JSON.stringify(historyList));
+            updateTabBadges();
+        }
+
+        function updateTabBadges() {
+            document.getElementById('allCountBadge').innerText = allFiles.length;
+            document.getElementById('bookmarksCountBadge').innerText = bookmarks.length;
+            document.getElementById('historyCountBadge').innerText = historyList.length;
+        }
+
+        // --- File Preview Modal ---
+        function previewFile(path, fileName) {
+            recordHistory(path);
+            const relativePath = `./${path}`;
+            
+            document.getElementById('previewFileName').innerText = fileName;
+            document.getElementById('previewFilePath').innerText = path;
+            document.getElementById('previewExternalLink').href = relativePath;
+            document.getElementById('previewIframe').src = relativePath;
+            
+            document.getElementById('previewModal').classList.remove('hidden');
+        }
+
+        function closePreviewModal() {
+            document.getElementById('previewModal').classList.add('hidden');
+            document.getElementById('previewIframe').src = 'about:blank';
+        }
+
+        // --- GitHub Token Modal ---
+        function openTokenModal() {
+            document.getElementById('tokenInput').value = ghToken;
+            document.getElementById('tokenModal').classList.remove('hidden');
+        }
+
+        function closeTokenModal() {
+            document.getElementById('tokenModal').classList.add('hidden');
+        }
+
+        function saveToken() {
+            const token = document.getElementById('tokenInput').value.trim();
+            ghToken = token;
+            if (token) {
+                localStorage.setItem('chon_gh_token', token);
+            } else {
+                localStorage.removeItem('chon_gh_token');
+            }
+            closeTokenModal();
+            fetchRepositoryFiles(true);
+        }
+
+        function clearToken() {
+            document.getElementById('tokenInput').value = '';
+            ghToken = '';
+            localStorage.removeItem('chon_gh_token');
+            closeTokenModal();
+            fetchRepositoryFiles(true);
+        }
+
+        // --- Utility Helpers ---
+        function getFileIcon(ext) {
+            switch (ext) {
+                case 'html': case 'htm': return 'fa-brands fa-html5 text-orange-500';
+                case 'pdf': return 'fa-solid fa-file-pdf text-red-500';
+                case 'doc': case 'docx': return 'fa-solid fa-file-word text-blue-600';
+                case 'ppt': case 'pptx': return 'fa-solid fa-file-powerpoint text-amber-600';
+                case 'jpg': case 'png': case 'svg': case 'webp': case 'gif': return 'fa-solid fa-file-image text-emerald-500';
+                case 'js': case 'ts': case 'py': case 'cpp': case 'c': return 'fa-solid fa-file-code text-indigo-500';
+                default: return 'fa-solid fa-file-lines text-slate-400';
+            }
+        }
+
+        function formatFileSize(bytes) {
+            if (!bytes || bytes === 0) return 'HTML';
+            const k = 1024;
+            const sizes = ['B', 'KB', 'MB', 'GB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+        }
+
+        function escapeQuotes(str) {
+            return str.replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>
